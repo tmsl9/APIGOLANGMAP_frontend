@@ -22,7 +22,7 @@
 
 	function validate_password() {
 		if (confirm_password !== "") {
-			confirm_password = (password !== confirm_password) ? "#b42020" : "#31a21f"
+			color_val_pass = (password !== confirm_password) ? "#b42020" : "#31a21f"
 		} else {
 			color_val_pass = ""
 		}
