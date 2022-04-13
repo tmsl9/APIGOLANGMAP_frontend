@@ -11,5 +11,5 @@ To stop
 
 ```bash
 docker stop svelte .
-docker rm svelte # if neccessary
+docker rm svelte # if necessary
 ```
