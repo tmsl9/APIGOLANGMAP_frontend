@@ -1,4 +1,4 @@
-<script>
+<script context="module">
 	import { url, auth } from '../routes/routes.svelte'
 	let username = ""
 	let password = ""

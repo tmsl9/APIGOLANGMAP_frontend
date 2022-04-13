@@ -1,5 +1,7 @@
 <script>
-	import Register from './auth/register.svelte'
+    import TaskBar, { component } from './taskbar/taskbar.svelte'
 </script>
 
-<Register/>
+<TaskBar/>
+
+<svelte:component this={component} />
