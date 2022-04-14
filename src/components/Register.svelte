@@ -1,68 +1,66 @@
 <script>
-    import { url, auth } from '../routes/routes.svelte'
+    import { url, auth } from '../routes/Routes.svelte'
 	import { createEventDispatcher } from 'svelte';
-		const dispatch = createEventDispatcher();
-        let username = ""
-        let password = ""
-        let confirm_password = ""
-        let color_val_pass = ""
-        let loading = false;
-        let message = { success: null, display: "" };
-        let validPw = false;
-		let isLoading = false;
-    
-        async function handleRegister() {
-            if (validPw){
-                console.log(url + auth.register)
-                try{
-                    const res = await fetch(url + auth.register, {
-                        method: "POST",
-                        body: JSON.stringify({
-                            username,
-                            password,
-                        }),
-                    })
-                        
-                    const json = await res.json()
-                   
-					if(json.status == 200){						
-						isLoading = false;
-						dispatch('register_success');
-					}else {
-						isLoading = true;
-					}
-                }catch(error){
-                    let errorMsg = error.error_description || error.message;
-                    message = { success: false, display: errorMsg };
-                }finally{
-                    loading = false;
-                }
-            }
-            else{
-                message = { success: false, display: "Confirm your password!" };
-            }
-        }
-    
-        function validate_password() {
-            if (confirm_password !== "") {
-                if (password !== confirm_password){
-                    color_val_pass = "#b42020"
+	const dispatch = createEventDispatcher();
+	let username = ""
+	let password = ""
+	let confirm_password = ""
+	let color_val_pass = ""
+	let loading = false;
+	let message = { success: null, display: "" };
+	let validPw = false;
+	let isLoading = false;
 
-                    console.log("Diferente" + password +" cf "+  confirm_password)
-                    validPw = false;
-                }else {
-                    color_val_pass = "#31a21f"
-                    validPw = true;
-                    console.log("Igual" + password +" cf "+  confirm_password )
-                }
-            } else {
-                color_val_pass = ""
-                validPw = false;
-            }
-        }
-		
+	async function handleRegister() {
+		if (validPw){
+			console.log(url + auth.register)
+			try{
+				const res = await fetch(url + auth.register, {
+					method: "POST",
+					body: JSON.stringify({
+						username,
+						password,
+					}),
+				})
 
-    </script>
+				const json = await res.json()
+
+				if(json.status == 200){
+					isLoading = false;
+					dispatch('register_success');
+				}else {
+					isLoading = true;
+				}
+			}catch(error){
+				let errorMsg = error.error_description || error.message;
+				message = { success: false, display: errorMsg };
+			}finally{
+				loading = false;
+			}
+		}
+		else{
+			message = { success: false, display: "Confirm your password!" };
+		}
+	}
+
+	function validate_password() {
+		if (confirm_password !== "") {
+			if (password !== confirm_password){
+				color_val_pass = "#b42020"
+
+				console.log("Diferente" + password +" cf "+  confirm_password)
+				validPw = false;
+			}else {
+				color_val_pass = "#31a21f"
+				validPw = true;
+				console.log("Igual" + password +" cf "+  confirm_password )
+			}
+		} else {
+			color_val_pass = ""
+			validPw = false;
+		}
+	}
+</script>
 
 
 

@@ -1,10 +1,5 @@
 <script>
-    import Auth from './components/Auth.svelte'
+    import Navbar from './components/Navbar.svelte'
 </script>
 
-
-<div class="app">
-
-		<Auth />
-
-</div>
+<Navbar />

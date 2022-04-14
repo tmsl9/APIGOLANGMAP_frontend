@@ -1,8 +1,7 @@
 <script>
-	import { url, auth } from '../routes/routes.svelte'
+	import { url, auth } from '../routes/Routes.svelte'
 	let username = ""
 	let password = ""
-	let loading = false;
 	let isLoading = false;
   	let isSuccess = false;
 
