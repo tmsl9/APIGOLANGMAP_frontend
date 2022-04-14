@@ -1,7 +1,10 @@
 <script>
-    import TaskBar, { component } from './taskbar/taskbar.svelte'
+    import Auth from './components/Auth.svelte'
 </script>
 
-<TaskBar/>
 
-<svelte:component this={component} />
+<div class="app">
+
+		<Auth />
+
+</div>
