@@ -1,57 +1,67 @@
 <script>
-	import '../css/auth.css'
-	import { url, auth } from '../Routes.svelte'
+	import "../css/auth.css";
+	import axios from "axios";
+	import { createEventDispatcher } from "svelte";
+	import { username as username_store, token, authenticated } from "../stores/store";
+	import { auth } from "../Routes.svelte";
 
-	let username = ""
-	let password = ""
+	const dispatch = createEventDispatcher();
+	let username = "";
+	let password = "";
+	let message = { success: null, display: "" };
 	let isLoading = false;
-  	let isSuccess = false;
+	let isSuccess = false;
 
-	async function handleLogin() {
-		isLoading = true ;
-		console.log(url + auth.login)
-		const res = await fetch(url + auth.login, {
-			method: "POST",
-			body: JSON.stringify({
-				username,
-				password,
-			}),			
-		})
-		
-		const json = await res.json()
-		if(json.status == 200){
-			isSuccess = true;
+	$: submit = async () => {
+		isLoading = true;
+		const response = await axios.post(auth.login, {
+			username,
+			password,
+		});
+
+		if (response.status === 200) {
+			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 			isLoading = false;
-		}else{
+			console.log(response.data)
+			//username_store.set(response.data)
+			token.set(response.data.token);
+			authenticated.set(true)
+			message = { success: true, display: response.data.message };
+			new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
+				dispatch("login_success", { tab: "Home" });
+			});
+		} else {
+			message = { success: false, display: response.data.message };
 			isSuccess = false;
 		}
-	}
+	};
 </script>
 
-
-<form on:submit|preventDefault={handleLogin}>
+<form on:submit|preventDefault={submit}>
 	{#if isSuccess}
-	  <div class="success">
-		🔓
-		<br />
-		You've been successfully logged in.
-	  </div>
+		<div class="success">
+			🔓
+			<br />
+			You've been successfully logged in.
+		</div>
 	{:else}
-	  <h1>👤</h1>
-	  <!-- svelte-ignore a11y-label-has-associated-control -->
-	  <label>Username</label>
-	  <input name="username" placeholder="Set Your Username" bind:value={username}   />
+		<h1>👤</h1>
+		<!-- svelte-ignore a11y-label-has-associated-control -->
+		<label>Username</label>
+		<input name="username" placeholder="Set Your Username" bind:value={username} />
 
-	  <!-- svelte-ignore a11y-label-has-associated-control -->
-	  <label>Password</label>
-	  <input name="password" type="password" bind:value={password} placeholder="Set Your password" />
+		<!-- svelte-ignore a11y-label-has-associated-control -->
+		<label>Password</label>
+		<input name="password" type="password" bind:value={password} placeholder="Set Your password" />
 
-	  <button type="submit">
+		<button type="submit">
+			{#if isLoading}Logging in...{:else}Log in 🔒{/if}
+		</button>
 
-		{#if isLoading}Logging in...{:else}Log in 🔒{/if}
-	  </button>
-
-
+		{#if message.success != null}
+			<div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
+				{message.display}
+			</div>
+		{/if}
 	{/if}
 </form>
-

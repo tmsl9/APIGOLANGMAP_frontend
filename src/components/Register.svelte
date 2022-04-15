@@ -1,7 +1,8 @@
 <script>
 	import '../css/auth.css'
+	import axios from 'axios';
 	import { createEventDispatcher } from 'svelte'
-    import { url, auth } from '../Routes.svelte'
+    import { auth } from '../Routes.svelte'
 
 	const dispatch = createEventDispatcher();
 	let username = ""
@@ -12,33 +13,22 @@
 	let validPw = false;
 	let isLoading = false;
 
-	async function handleRegister() {
+	$: submit = async () => {
 		if (validPw){
-			try{
-				const res = await fetch(url + auth.register, {
-					method: "POST",
-					body: JSON.stringify({
-						username,
-						password,
-					}),
-				})
-
-				const json = await res.json()
-
-				if(json.status == 200){
-					isLoading = false;
-					console.log()
-					message = { success: true, display: json.message };
-					dispatch('register_success');
-				}else {
-					isLoading = false;
-					message = { success: false, display: json.message };
-				}
-			}catch(error){
-				let errorMsg = error.error_description || error.message;
-				message = { success: false, display: errorMsg };
-			}finally{
+			isLoading = true;
+			const response = await axios.post(auth.register, {
+				username,
+				password
+			});
+			if(response.status === 201){
 				isLoading = false;
+				message = { success: true, display: response.data.message };
+				new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
+					dispatch('register_success', { tab: "Login" })
+				})
+			}else {
+				isLoading = false;
+				message = { success: false, display: response.data.message };
 			}
 		} else {
 			message = { success: false, display: "Confirm your password!" };
@@ -61,7 +51,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleRegister}>
+<form on:submit|preventDefault={submit}>
 	<div class="form-widget">
 		<h1 class="header">Eternal Dev Community</h1>
 		<p class="description">Create an account and join the community of developers</p>

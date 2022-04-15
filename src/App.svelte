@@ -1,17 +1,35 @@
 <script>
-    import './css/nav.css'
-    import { navOptions } from  './Nav.svelte';
-    let selected = navOptions[0];	// keep track of the selected 'page' object (default to the about component since we must have local db connection established first)
-    let intSelected = 0;	// selected page index
-    let loginID = 0;
+    import "./css/nav.css";
+    import axios from "axios";
+    import { token, authenticated } from "./stores/store";
+    import { navOptions } from "./Nav.svelte";
+    import { auth } from "./Routes.svelte";
 
-    // change the selected component (the event.originalTarget.id is not accessible in Chrome so switched to event.srcElement.id)
-    function changeComponent (event) {
+    let selected = navOptions[0];
+    let intSelected = 0; // selected page index
+
+    function changeComponent(event) {
         selected = navOptions[event.target.id];
         intSelected = event.target.id;
     }
 
-    navOptions.forEach((element, index) => { if (element.page === "Login") { loginID = index }})
+    export function triggerTab(event) {
+        navOptions.forEach((element, index) => {
+            if (element.page === event.detail.tab) {
+                document.getElementById(index).click();
+            }
+        });
+    }
+
+    $: logout = async () => {
+        const response = await axios.post(auth.logout, {}, { withCredentials: true });
+        if (response.status === 200) {
+            axios.defaults.headers.common['Authorization'] = '';
+            token.set("");
+            authenticated.set(false);
+            triggerTab({ detail: { tab: "Home" }});
+        }
+    };
 </script>
 
 <main class="container">
@@ -20,17 +38,24 @@
             <!--app navigation -->
             <div class="row">
                 {#each navOptions as option, i}
-                    <div class="col tab-heading {intSelected == i ? 'tab-active' : ''}"
-                         on:click={changeComponent} id={i}>
-                        {option.page}
-                    </div>
+                    {#if option.page === "Home" || option.loggedIn === $authenticated.toString()}
+                        <div class="col tab-heading {intSelected == i ? 'tab-active' : ''}" on:click={changeComponent} id={i}>
+                            {option.page}
+                        </div>
+                    {/if}
                 {/each}
+                {#if $authenticated.toString() === "true"}
+                    <div class="col tab-heading" on:click={logout}>Logout</div>
+                {/if}
             </div>
             <!-- content wrapper -->
             <!-- this is where our main content is placed -->
-            <svelte:component this={selected.component} on:register_success={() => {
-                        document.getElementById(loginID).click()
-                    }}/>
+            <svelte:component
+                this={selected.component}
+                on:register_success={triggerTab}
+                on:login_success={triggerTab}
+                on:logged_out={triggerTab}
+            />
         </div>
     </div>
 </main>
