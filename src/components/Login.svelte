@@ -1,6 +1,6 @@
 <script>
 	import '../css/auth.css'
-	import { url, auth } from '../routes/Routes.svelte'
+	import { url, auth } from '../Routes.svelte'
 
 	let username = ""
 	let password = ""

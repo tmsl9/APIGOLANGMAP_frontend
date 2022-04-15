@@ -1,21 +1,19 @@
 <script>
 	import '../css/auth.css'
-    import { url, auth } from '../routes/Routes.svelte'
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte'
+    import { url, auth } from '../Routes.svelte'
 
 	const dispatch = createEventDispatcher();
 	let username = ""
 	let password = ""
 	let confirm_password = ""
 	let color_val_pass = ""
-	let loading = false;
 	let message = { success: null, display: "" };
 	let validPw = false;
 	let isLoading = false;
 
 	async function handleRegister() {
 		if (validPw){
-			console.log(url + auth.register)
 			try{
 				const res = await fetch(url + auth.register, {
 					method: "POST",
@@ -29,18 +27,20 @@
 
 				if(json.status == 200){
 					isLoading = false;
+					console.log()
+					message = { success: true, display: json.message };
 					dispatch('register_success');
 				}else {
-					isLoading = true;
+					isLoading = false;
+					message = { success: false, display: json.message };
 				}
 			}catch(error){
 				let errorMsg = error.error_description || error.message;
 				message = { success: false, display: errorMsg };
 			}finally{
-				loading = false;
+				isLoading = false;
 			}
-		}
-		else{
+		} else {
 			message = { success: false, display: "Confirm your password!" };
 		}
 	}
@@ -49,13 +49,10 @@
 		if (confirm_password !== "") {
 			if (password !== confirm_password){
 				color_val_pass = "#b42020"
-
-				console.log("Diferente" + password +" cf "+  confirm_password)
 				validPw = false;
 			}else {
 				color_val_pass = "#31a21f"
 				validPw = true;
-				console.log("Igual" + password +" cf "+  confirm_password )
 			}
 		} else {
 			color_val_pass = ""
@@ -69,29 +66,29 @@
 		<h1 class="header">Eternal Dev Community</h1>
 		<p class="description">Create an account and join the community of developers</p>
 		<div class="form-group">
-			<label for="email">Email address</label>
+			<label for="username">Username</label>
 			<input
-				id='email' class="form-control" type="text" placeholder="Set Your Username" 
+				id='username' class="form-control" type="text" placeholder="Set Your Username"
 				bind:value={username}
 			/>
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label>
 			<input
-				id='password' class="form-control"   placeholder="Set Your Password"
-				bind:value={password}  on:input="{validate_password}" style="background-color:{color_val_pass}"
+				id='password' class="form-control" type="password" placeholder="Set Your Password"
+				bind:value={password} on:input="{validate_password}" style="background-color:{color_val_pass}"
 			/>
 		</div>
 		<div class="form-group">
 			<label for="confirmpassword">Confirm Password</label>
 			<input
-				id='confirmpassword' class="form-control"    placeholder="Confirm Your Password"
+				id='confirmpassword' class="form-control" type="password" placeholder="Confirm Your Password"
 				bind:value={confirm_password} on:input="{validate_password}" style="background-color:{color_val_pass}"
 			/>
 		</div>
 		
 		<button type="submit"> 
-			{#if isLoading}Logging in...{:else}Log in 🔒{/if}
+			{#if isLoading}Registering...{:else}Register{/if}
 		</button>
 
 		{#if message.success != null}

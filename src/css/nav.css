@@ -1,0 +1,10 @@
+.tab-heading {
+    font-weight: bold;
+    padding: 1rem;
+    background-color: lightgray;
+}
+
+.tab-active {
+    background: black;
+    color: white;
+}
