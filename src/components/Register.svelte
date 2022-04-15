@@ -15,20 +15,23 @@
 
 	$: submit = async () => {
 		if (validPw){
+			document.getElementById("submit").disabled = true;
 			isLoading = true;
 			const response = await axios.post(auth.register, {
 				username,
 				password
 			});
 			if(response.status === 201){
-				isLoading = false;
 				message = { success: true, display: response.data.message };
 				new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
+					isLoading = false;
 					dispatch('register_success', { tab: "Login" })
+					document.getElementById("submit").disabled = false;
 				})
 			}else {
 				isLoading = false;
 				message = { success: false, display: response.data.message };
+				document.getElementById("submit").disabled = false;
 			}
 		} else {
 			message = { success: false, display: "Confirm your password!" };
@@ -77,7 +80,7 @@
 			/>
 		</div>
 		
-		<button type="submit"> 
+		<button type="submit" id="submit">
 			{#if isLoading}Registering...{:else}Register{/if}
 		</button>
 

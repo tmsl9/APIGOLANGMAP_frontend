@@ -4,16 +4,19 @@
     import { authenticated } from "../stores/store";
     import { position } from "../Routes.svelte";
 
+    let loggedOutMsg = "Hi, you are not logged in";
+    let loggedInMsg = "Hi, you are logged in";
+    let message = ""
 
-    let message = "You are not logged in";
-
-    /*onMount(async () => {
-        const response = await axios.get(position.getMyLocation, {}, { withCredentials: true });
+    onMount(async () => {
+        const response = await axios.get(position.getMyLocation);
         console.log(response)
         if ($authenticated.toString() === "true") {
-            message = `Hi, you are at ${response.data.location}`;
+            message = loggedInMsg
+        } else {
+            message = loggedOutMsg
         }
-    });*/
+    });
 </script>
 
 <div class="container mt-5 text-center">

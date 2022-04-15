@@ -18,12 +18,7 @@ axios.interceptors.response.use(resp => resp, async error => {
             token.set(response.data.token)
 
             return axios(error.config);
-        } else {
-            token.set("")
-            authenticated.set(false)
         }
-    } else {
-        authenticated.set(false)
     }
     refresh = false;
     return error;

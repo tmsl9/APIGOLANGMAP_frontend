@@ -13,6 +13,7 @@
 	let isSuccess = false;
 
 	$: submit = async () => {
+		document.getElementById("submit").disabled = true;
 		isLoading = true;
 		const response = await axios.post(auth.login, {
 			username,
@@ -21,18 +22,19 @@
 
 		if (response.status === 200) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-			isLoading = false;
-			console.log(response.data)
 			//username_store.set(response.data)
 			token.set(response.data.token);
 			authenticated.set(true)
 			message = { success: true, display: response.data.message };
-			new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
+			new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
+				isLoading = false;
 				dispatch("login_success", { tab: "Home" });
+				document.getElementById("submit").disabled = false;
 			});
 		} else {
 			message = { success: false, display: response.data.message };
 			isSuccess = false;
+			document.getElementById("submit").disabled = false;
 		}
 	};
 </script>
@@ -54,7 +56,7 @@
 		<label>Password</label>
 		<input name="password" type="password" bind:value={password} placeholder="Set Your password" />
 
-		<button type="submit">
+		<button type="submit" id="submit">
 			{#if isLoading}Logging in...{:else}Log in 🔒{/if}
 		</button>
 
