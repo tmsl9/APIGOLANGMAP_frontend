@@ -7,7 +7,7 @@
     }
     export const alert = new class {
         constructor() {
-            this.updateAlertTime = "/alert/time/"
+            this.alertTime = "/alert/time/"
         }
 	}
     export const auth = new class {

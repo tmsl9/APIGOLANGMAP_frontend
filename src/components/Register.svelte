@@ -15,8 +15,8 @@
 
 	$: submit = async () => {
 		if (validPw){
-			document.getElementById("submit").disabled = true;
 			isLoading = true;
+			document.getElementById("submit").disabled = true;
 			const response = await axios.post(auth.register, {
 				username,
 				password
@@ -29,8 +29,8 @@
 					document.getElementById("submit").disabled = false;
 				})
 			}else {
-				isLoading = false;
 				message = { success: false, display: response.data.message };
+				isLoading = false;
 				document.getElementById("submit").disabled = false;
 			}
 		} else {

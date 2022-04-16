@@ -2,7 +2,7 @@
 	import "../css/auth.css";
 	import axios from "axios";
 	import { createEventDispatcher } from "svelte";
-	import { username as username_store, token, authenticated } from "../stores/store";
+	import { updateStore } from "../stores/store";
 	import { auth } from "../Routes.svelte";
 
 	const dispatch = createEventDispatcher();
@@ -13,8 +13,8 @@
 	let isSuccess = false;
 
 	$: submit = async () => {
-		document.getElementById("submit").disabled = true;
 		isLoading = true;
+		document.getElementById("submit").disabled = true;
 		const response = await axios.post(auth.login, {
 			username,
 			password,
@@ -22,17 +22,17 @@
 
 		if (response.status === 200) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-			//username_store.set(response.data)
-			token.set(response.data.token);
-			authenticated.set(true)
+			updateStore(response.data.User.username, response.data.token, true)
 			message = { success: true, display: response.data.message };
 			new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
 				isLoading = false;
+				isSuccess = true
 				dispatch("login_success", { tab: "Home" });
 				document.getElementById("submit").disabled = false;
 			});
 		} else {
 			message = { success: false, display: response.data.message };
+			isLoading = false;
 			isSuccess = false;
 			document.getElementById("submit").disabled = false;
 		}

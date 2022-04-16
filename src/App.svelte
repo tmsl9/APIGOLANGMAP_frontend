@@ -1,7 +1,7 @@
 <script>
     import "./css/nav.css";
     import axios from "axios";
-    import { token, authenticated } from "./stores/store";
+    import { authenticated, cleanStore } from "./stores/store";
     import { navOptions } from "./Nav.svelte";
     import { auth } from "./Routes.svelte";
 
@@ -22,11 +22,10 @@
     }
 
     $: logout = async () => {
-        const response = await axios.post(auth.logout, {}, { withCredentials: true });
+        const response = await axios.post(auth.logout, {});
         if (response.status === 200) {
             axios.defaults.headers.common['Authorization'] = '';
-            token.set("");
-            authenticated.set(false);
+            cleanStore()
             triggerTab({ detail: { tab: "Home" }});
         }
     };

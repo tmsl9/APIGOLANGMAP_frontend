@@ -10,12 +10,12 @@
 
 	// these are our 'pages' to navigate through (in order for this export to work the script tag MUST include context="module")
 	export const navOptions = [
-		{ page: 'Home',     component: Home, loggedIn: "false" },
-		{ page: 'Login',    component: Login, loggedIn: "false" },
-        { page: 'Register', component: Register, loggedIn: "false" },
-        { page: 'Position', component: Position, loggedIn: "true" },
-        { page: 'Follower', component: Follower, loggedIn: "true" },
-        { page: 'SOS', component: SOS, loggedIn: "true" },
+		{ page: 'Home',       component: Home,      loggedIn: "false" },
+		{ page: 'Login',      component: Login,     loggedIn: "false" },
+        { page: 'Register',   component: Register,  loggedIn: "false" },
+        { page: 'Position',   component: Position,  loggedIn: "true" },
+        { page: 'Follower',   component: Follower,  loggedIn: "true" },
+        { page: 'SOS',        component: SOS,       loggedIn: "true" },
         { page: 'Alert Time', component: AlertTime, loggedIn: "true" },
 	];
 </script>
