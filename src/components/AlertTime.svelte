@@ -1,0 +1,8 @@
+<script>
+    let message = 'Alert Time';
+
+</script>
+
+<div class="container mt-5 text-center">
+    <h3>{message}</h3>
+</div>

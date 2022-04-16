@@ -33,8 +33,15 @@
             this.getLocationHistory = "/position/history"
             this.deleteLocation = "/position"
             this.getUsersLocationWithFilters = "/position/filter"
+            this.getAllUsersUnderXKms = "/position/users_under_xkms"
         }
-	}
+    }
+    export const sos = new class {
+        constructor() {
+            this.activate = "/sos/activate"
+            this.deactivate = "/sos/desactivate"
+        }
+    }
     export const webSocket = new class {
         constructor() {
             this.socket = "/socket"
