@@ -6,19 +6,10 @@
 
     let loggedOutMsg = "Hi, you are not logged in";
     let loggedInMsg = "Hi, you are logged in";
-    let message = ""
 
-    onMount(async () => {
-        const response = await axios.get(position.getMyLocation);
-        console.log(response)
-        if ($authenticated.toString() === "true") {
-            message = loggedInMsg
-        } else {
-            message = loggedOutMsg
-        }
-    });
+    onMount(async () => { if ($authenticated.toString() === "true") { await axios.get(position.getMyLocation) }});
 </script>
 
 <div class="container mt-5 text-center">
-    <h3>{message}</h3>
+    <h3>{($authenticated.toString() === "true") ? loggedInMsg : loggedOutMsg}</h3>
 </div>

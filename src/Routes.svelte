@@ -12,6 +12,7 @@
 	}
     export const auth = new class {
         constructor() {
+            this.getUser = "/auth/getUser"
             this.login = "/auth/login"
             this.logout = "/auth/logout"
             this.register = "/auth/register"
