@@ -2,6 +2,8 @@
     font-weight: bold;
     padding: 1rem;
     background-color: lightgray;
+    width: max-content;
+    display: inline-block;
 }
 
 .tab-active {

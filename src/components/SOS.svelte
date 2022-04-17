@@ -1,22 +1,21 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { username, authenticated } from "../stores/store";
+    import { userID, username, authenticated, updateStore } from "../stores/store";
     import { auth, sos } from "../Routes.svelte";
 
     let message = { success: null, display: "" };
     let isMounting = true
     let isUpdating = false
     let sosActive = false
-    let userID = 0
 
     onMount(async () => {
         if ($authenticated.toString() === "true") {
             const response = await axios.get(auth.getUser)
 
             if (response.status === 200) {
+                updateStore(response.data.user.ID, response.data.user.username, null, null)
                 sosActive = response.data.user.IsSOSActivated
-                userID = response.data.user.ID
                 isMounting = false
             }
         }
@@ -49,9 +48,10 @@
 </script>
 
 <div class="container mt-5 text-center">
-    <h3>SOS</h3>
     {#if !isMounting}
-        <button type="button" id="update" style="border-radius: 100%; background-color: {sosActive ? 'red' : 'green'}" on:click={update}>
+        <button type="button" id="update" on:click={update}
+                style="border-radius:100%;margin-left:50%;padding:20px;background-color:{sosActive ? 'red' : 'transparent'};
+                border-color:{sosActive ? 'transparent' : 'red'};color:{sosActive ? 'white' : 'red'};">
             SOS
         </button>
     {/if}

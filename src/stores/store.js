@@ -1,27 +1,32 @@
 import { writable, get } from 'svelte/store';
 
-// localStorage
-export let username = writable(localStorage.getItem("username") || "");
-
-// sessionStorage
+//user info
+export let userID = writable(sessionStorage.getItem("userID") || 0);
+export let username = writable(sessionStorage.getItem("username") || "");
+//auth
 export let token = writable(sessionStorage.getItem("token") || "");
 export let authenticated = writable(sessionStorage.getItem("authenticated") || false);
 
-username.subscribe((val) => (localStorage.username = val));
+userID.subscribe((val) => (sessionStorage.userID = val));
+username.subscribe((val) => (sessionStorage.username = val));
 token.subscribe((val) => (sessionStorage.token = val));
 authenticated.subscribe((val) => (sessionStorage.authenticated = val));
 
-if (get(authenticated).toString() === "false" || get(token) === "" || get(username) === "undefined" ||
-    get(token) === "undefined" || get(authenticated) === "undefined") {
+// Have to manage this better.
+// This (clean store when value invalid) should happen if only token isn't defined.
+// Everything else can be obtained through auth.getUser route.
+if (get(authenticated).toString() === "false" || get(token) === "" || get(userID) === "undefined"
+    || get(username) === "undefined" || get(token) === "undefined" || get(authenticated) === "undefined") {
     cleanStore()
 }
 
 export function cleanStore(){
-    updateStore("", "", false)
+    updateStore(0, "", "", false)
 }
 
-export function updateStore(usrn, tkn, authd) {
-    username.set(usrn)
-    token.set(tkn)
-    authenticated.set(authd)
+export function updateStore(id, usrn, tkn, authd) {
+    if (id    != null) { userID.set(id)           }
+    if (usrn  != null) { username.set(usrn)       }
+    if (tkn   != null) { token.set(tkn)           }
+    if (authd != null) { authenticated.set(authd) }
 }

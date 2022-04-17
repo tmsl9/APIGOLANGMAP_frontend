@@ -22,8 +22,8 @@
     export const follower = new class {
         constructor() {
             this.getAllFollowers = "/follower/"
-            this.associateFollower = "/follower/assoc"
-            this.deassociateFollower = "/follower/deassoc"
+            this.assocFollower = "/follower/assoc"
+            this.deassocFollower = "/follower/deassoc"
         }
     }
     export const position = new class {

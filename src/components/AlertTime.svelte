@@ -1,7 +1,7 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { username, authenticated } from "../stores/store";
+    import { userID, username, authenticated, updateStore } from "../stores/store";
     import { auth, alert } from "../Routes.svelte";
 
     let message = { success: null, display: "" };
@@ -9,16 +9,15 @@
     let isUpdating = false
     let oldAlertTime = 0;
     let newAlertTime = 0;
-    let userID = 0;
 
     onMount(async () => {
         if ($authenticated.toString() === "true") {
             const response = await axios.get(auth.getUser)
 
             if (response.status === 200) {
+                updateStore(response.data.user.ID, response.data.user.username, null, null)
                 oldAlertTime = response.data.user.alertTime
                 newAlertTime = response.data.user.alertTime
-                userID = response.data.user.ID
                 isMounting = false
             }
         }
@@ -51,7 +50,6 @@
 </script>
 
 <div class="container mt-5 text-center">
-    <h3>Alert Time</h3>
     {#if !isMounting}
         <h4>
             Alert time then: {oldAlertTime}h

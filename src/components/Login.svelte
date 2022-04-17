@@ -22,7 +22,7 @@
 
 		if (response.status === 200) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-			updateStore(response.data.User.username, response.data.token, true)
+			updateStore(response.data.User.ID, response.data.User.username, response.data.token, true)
 			message = { success: true, display: response.data.message };
 			new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
 				isLoading = false;

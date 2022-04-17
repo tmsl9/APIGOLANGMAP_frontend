@@ -1,7 +1,7 @@
 <script>
     import "./css/nav.css";
     import axios from "axios";
-    import { authenticated, cleanStore } from "./stores/store";
+    import { authenticated, userID, username, cleanStore } from "./stores/store";
     import { navOptions } from "./Nav.svelte";
     import { auth } from "./Routes.svelte";
 
@@ -45,6 +45,7 @@
                 {/each}
                 {#if $authenticated.toString() === "true"}
                     <div class="col tab-heading" on:click={logout}>Logout</div>
+                    <div class="col tab-heading tab-active">{$username} #{$userID}</div>
                 {/if}
             </div>
             <!-- content wrapper -->
