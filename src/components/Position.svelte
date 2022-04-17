@@ -1,54 +1,30 @@
 <script>
     import axios from "axios";
-    import { createEventDispatcher } from "svelte";
-    import { userID } from "../stores/store";
-    import { position } from "../Routes.svelte";
+    import { onMount } from "svelte";
+    import {authenticated, isSOSActivated, updateStore} from "../stores/store";
+    import { auth } from "../Routes.svelte";
+    import AssocPosition from "./AssocPosition.svelte";
+    import ListPosition from "./ListPosition.svelte";
 
-    const dispatch = createEventDispatcher();
-    let message = { success: null, display: "" };
-    let isSubmitting = false
-    let coordinates = []
-    let long = 0
-    let lat = 0
+    let isMounting = true
+    let listFollowersCompo;
 
-    $: submit = async () => {
-            document.getElementById("submit").disabled = true;
-            isSubmitting = true;
-            // giving error message "Check syntax!"
-            const response = await axios.post(position.registerLocation, {
-                    //userid: $userID,
-                    UserID: $userID,
-                    Latitude: lat,
-                    Longitude: long
-            });
+    onMount(async () => {
+        // se calhar esta condição não faz sentido, visto que ao fazer
+        // o seguinte pedido já se vê se está realmente autenticado.
+        if ($authenticated.toString() === "true") {
+            const response = await axios.get(auth.getUser)
 
-            if (response.status === 201) {
-                    message = { success: true, display: response.data.message };
-                    new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
-                            isSubmitting = false;
-                            //dispatch("position_added", {followers: response.data.followers})
-                            document.getElementById("submit").disabled = false;
-                    });
-            } else {
-                    message = { success: false, display: response.data.message };
-                    isSubmitting = false;
-                    document.getElementById("submit").disabled = false;
+            if (response.status === 200) {
+                updateStore(response.data.user.ID, response.data.user.username, response.data.user.isSOSActivated, null, null)
+                isMounting = false
             }
-    }
+        }
+    });
 </script>
 
-<form on:submit|preventDefault={submit}>
-    <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label>New Coordinates</label>
-    <input name="latitude" placeholder="Set Follower ID" bind:value={lat} />
-    <input name="longitude" placeholder="Set Follower ID" bind:value={long} />
-    <button type="submit" id="submit">
-            {#if isSubmitting}Adding...{:else}Add{/if}
-    </button>
-</form>
-
-{#if message.success != null}
-    <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
-            {message.display}
-    </div>
-{/if}
+<ListPosition/>
+<!-- <AssocFollower on:follower_added={(event) => { listFollowersCompo.updateFollowers(event.detail.followers) }}/> -->
+<!-- {#if !isMounting}
+    <ListFollowers bind:this={listFollowersCompo} />
+{/if} -->
