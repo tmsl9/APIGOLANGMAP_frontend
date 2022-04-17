@@ -12,7 +12,7 @@
     onMount(async () => {
             if ($authenticated.toString() === "true") {
                 //     if($access_mode.toString == "-1"){
-                //                 const response = await axios.get(position.getMyLocation, {
+                //                 const response = await axios.get(position.getUsersLocationWithFilters, {
                 //                 userid: userID
                 //         })
 
@@ -25,7 +25,7 @@
                 //                 isMounting = false
                 //         }   
                 //     }else {
-                        const response = await axios.get(position.getUsersLocationWithFilters, {
+                        const response = await axios.get(position.getMyLocation, {
                                 userid: userID
                         })
 

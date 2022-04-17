@@ -17,8 +17,8 @@
             const response = await axios.post(position.registerLocation, {
                     userid: $userID,
                     UserID: $userID,
-                    Latitude: parseFloat(lat),
-                    Longitude: parseInt(long)
+                    Latitude: 1,
+                    Longitude: 1
             });
             console.log(response.data.message)
             if (response.status === 201) {
@@ -39,8 +39,8 @@
 <form on:submit|preventDefault={submit}>
     <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>Coordinates</label>
-    <input name="latitude"  type=number placeholder="Set Your Latitude"  />
-    <input name="longitude" type=number placeholder="Set Your Longitude"  />
+    <input name="latitude"  type=number placeholder="Set Your Latitude" bind:value={lat} />
+    <input name="longitude" type=number placeholder="Set Your Longitude"  bind:value={long}/>
     <button type="submit" id="submit">
             {#if isSubmitting}Adding...{:else}Add{/if}
     </button>

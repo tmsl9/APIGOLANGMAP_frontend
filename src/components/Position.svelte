@@ -23,7 +23,8 @@
     });
 </script>
 
-<ListPosition/>
+<AssocPosition/>
+
 <!-- <AssocFollower on:follower_added={(event) => { listFollowersCompo.updateFollowers(event.detail.followers) }}/> -->
 <!-- {#if !isMounting}
     <ListFollowers bind:this={listFollowersCompo} />
