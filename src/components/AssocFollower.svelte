@@ -12,11 +12,11 @@
         $: submit = async () => {
                 document.getElementById("submit").disabled = true;
                 isSubmitting = true;
-                // giving error message "Check syntax!"
+
                 const response = await axios.post(follower.assocFollower, {
-                        //userid: $userID,
+                        userid: $userID,
                         UserID: $userID,
-                        FollowerUserID: followerID
+                        FollowerUserID: parseInt(followerID)
                 });
 
                 if (response.status === 201) {

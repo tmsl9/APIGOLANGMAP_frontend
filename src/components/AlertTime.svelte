@@ -15,7 +15,7 @@
             const response = await axios.get(auth.getUser)
 
             if (response.status === 200) {
-                updateStore(response.data.user.ID, response.data.user.username, null, null)
+                updateStore(response.data.user.ID, response.data.user.username, response.data.user.IsSOSActivated, null, null)
                 oldAlertTime = response.data.user.alertTime
                 newAlertTime = response.data.user.alertTime
                 isMounting = false

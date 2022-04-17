@@ -30,7 +30,7 @@
                 document.getElementById(followerID.toString()).disabled = true;
                 isSubmitting = true;
                 const response = await axios.post(follower.deassocFollower, {
-                        //userid: $userID,
+                        userid: $userID,
                         UserID: $userID,
                         FollowerUserID: followerID
                 });
@@ -48,6 +48,8 @@
                         document.getElementById(followerID.toString()).disabled = false;
                 }
         }
+
+        export function updateFollowers(followersUpd) { followers = followersUpd }
 </script>
 
 <div class="container mt-5 text-center">
@@ -56,9 +58,9 @@
                         <ul class="list-group">
                                 {#each followers as follower, i}
                                         <li class="list-group-item list-group-item-light">
-                                                {follower.username} #{follower.ID}
-                                                <button type="button" id="{follower.ID}" style="border-radius: 100%"
-                                                        class="btn btn-outline-danger" on:click={() => submit(follower.ID, i)}>
+                                                {follower.username} #{follower.id}
+                                                <button type="button" id="{follower.id}" style="border-radius: 100%"
+                                                        class="btn btn-outline-danger" on:click={() => submit(follower.id, i)}>
                                                         x
                                                 </button>
                                         </li>
