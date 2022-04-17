@@ -21,11 +21,9 @@
 
                 if (response.status === 201) {
                         message = { success: true, display: response.data.message };
-                        new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
-                                isSubmitting = false;
-                                dispatch("follower_added", {followers: response.data.followers})
-                                document.getElementById("submit").disabled = false;
-                        });
+                        isSubmitting = false;
+                        dispatch("follower_added", {followers: response.data.followers})
+                        document.getElementById("submit").disabled = false;
                 } else {
                         message = { success: false, display: response.data.message };
                         isSubmitting = false;
