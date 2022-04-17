@@ -11,19 +11,33 @@
 
     onMount(async () => {
             if ($authenticated.toString() === "true") {
-                    const response = await axios.get(position.getMyLocation, {
-                            userid: userID
-                    })
+                //     if($access_mode.toString == "-1"){
+                //                 const response = await axios.get(position.getMyLocation, {
+                //                 userid: userID
+                //         })
 
-                    console.log(response.data)
-                    if (response.status === 200) {
-                            if (response.data.message !== emptyListMsg){
-                                positions = response.data.data
-                                console.log(response.data.data)
-                            }
-                            isMounting = false
-                    }
-                    
+                //         console.log(response.data)
+                //         if (response.status === 200) {
+                //                 if (response.data.message !== emptyListMsg){
+                //                         positions = response.data.data
+                //                         console.log(response.data.data)
+                //                 }
+                //                 isMounting = false
+                //         }   
+                //     }else {
+                        const response = await axios.get(position.getUsersLocationWithFilters, {
+                                userid: userID
+                        })
+
+                        console.log(response.data)
+                        if (response.status === 200) {
+                                if (response.data.message !== emptyListMsg){
+                                        positions = response.data.data
+                                        console.log(response.data.data)
+                                }
+                                isMounting = false
+                        }
+                //     }                
             }
     });
     

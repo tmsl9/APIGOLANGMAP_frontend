@@ -39,8 +39,8 @@
 <form on:submit|preventDefault={submit}>
     <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>Coordinates</label>
-    <input name="latitude" placeholder="Set Your Latitude"  />
-    <input name="longitude" placeholder="Set Your Longitude"  />
+    <input name="latitude"  type=number placeholder="Set Your Latitude"  />
+    <input name="longitude" type=number placeholder="Set Your Longitude"  />
     <button type="submit" id="submit">
             {#if isSubmitting}Adding...{:else}Add{/if}
     </button>
