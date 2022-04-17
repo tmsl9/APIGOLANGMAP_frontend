@@ -1,21 +1,25 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { userID, username, authenticated, updateStore } from "../stores/store";
+    import { userID, username, isSOSActivated, authenticated, updateStore } from "../stores/store";
     import { auth, sos } from "../Routes.svelte";
 
-    let message = { success: null, display: "" };
     let isMounting = true
     let isUpdating = false
-    let sosActive = false
+    let sosActive = null
+    let message = { success: null, display: null };
+
+    const updateSOSActive = () => { sosActive = ($isSOSActivated.toString() === "true") }
+    const updateMsg = (success) => { message = { success, display: "SOS is turned " + (sosActive ? "ON" : "OFF") } }
 
     onMount(async () => {
         if ($authenticated.toString() === "true") {
             const response = await axios.get(auth.getUser)
 
             if (response.status === 200) {
-                updateStore(response.data.user.ID, response.data.user.username, null, null)
-                sosActive = response.data.user.IsSOSActivated
+                updateStore(response.data.user.ID, response.data.user.username, response.data.user.IsSOSActivated, null, null)
+                updateSOSActive()
+                updateMsg(true)
                 isMounting = false
             }
         }
@@ -26,21 +30,19 @@
         isUpdating = true;
         let url = !sosActive ? sos.activate : sos.deactivate
         const response = await axios.post(url, {
-            ID: userID,
+            ID: $userID,
             username: $username,
-            IsSOSActivated: sosActive,
+            IsSOSActivated: $isSOSActivated,
         });
 
-        // this won't work because this routes are not sending '200' when SOS updated
-        // also, I am assuming that a response field will be received as 'SOSactive'
-        // as guarantee
         if (response.status === 200 || response.status === 406) {
-            sosActive = response.data.SOSactive
-            message = { success: true, display: response.data.message };
+            updateStore(null, null, !sosActive, null, null)
+            updateSOSActive()
+            updateMsg(true)
             isUpdating = false;
             document.getElementById("update").disabled = false;
         } else {
-            message = { success: false, display: response.data.message };
+            updateMsg(false)
             isUpdating = false;
             document.getElementById("update").disabled = false;
         }
@@ -54,14 +56,14 @@
                 border-color:{sosActive ? 'transparent' : 'red'};color:{sosActive ? 'white' : 'red'};">
             SOS
         </button>
+
+        {#if message.success != null}
+            <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
+                {message.display}
+            </div>
+        {/if}
     {/if}
     <h4>
         Clicking SOS will alert your followers and update them with your current location, if available.
     </h4>
-
-    {#if message.success != null}
-        <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
-            {message.display}
-        </div>
-    {/if}
 </div>
