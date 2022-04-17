@@ -53,7 +53,7 @@
     {#if !isMounting}
         <button type="button" id="update" on:click={update}
                 style="border-radius:100%;margin-left:50%;padding:20px;background-color:{sosActive ? 'red' : 'transparent'};
-                border-color:{sosActive ? 'transparent' : 'red'};color:{sosActive ? 'white' : 'red'};">
+                border-color:{sosActive ? 'transparent' : 'green'};color:{sosActive ? 'white' : 'green'};">
             SOS
         </button>
 
