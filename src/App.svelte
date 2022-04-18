@@ -4,6 +4,9 @@
     import { authenticated, userID, username, cleanStore } from "./stores/store";
     import { navOptions } from "./Nav.svelte";
     import { auth } from "./Routes.svelte";
+    
+    import DATA from "./Data/data";
+    import Footer from "./components/Footer.svelte";
 
     let selected = navOptions[0];
     let intSelected = 0; // selected page index
@@ -30,32 +33,56 @@
         }
     };
 </script>
+<main>
+<section id="nav-bar">
+    <nav class="navbar main-bgcolor navbar-expand-md navbar-dark">
+      <!--app navigation -->
+      <ul class="nav nav-tabs">
+          {#each navOptions as option, i}
+      {#if option.page === "Home" || option.loggedIn === $authenticated.toString()}
+          <li class="nav-item">
+              <a class="nav-link light-color on:click" on:click={changeComponent} id={i} role="tab">{option.page}</a>
+          </li>
+      {/if}
+          {/each}
+      {#if $authenticated.toString() === "true"}
+                      <button on:click={logout}>Logout</button>
+                      <button>{$username} #{$userID}</button>
+                  {/if}
+      </ul>
+  </nav>
+     
+  
+  </section>
+   <!-- content wrapper -->
+   <svelte:component this={selected.component}/>
 
-<main class="container">
-    <div class="row flex flex-center">
-        <div class="col-4 offset-4 mt-5">
-            <!--app navigation -->
-            <div class="row">
-                {#each navOptions as option, i}
-                    {#if option.page === "Home" || option.loggedIn === $authenticated.toString()}
-                        <div class="col tab-heading {intSelected == i ? 'tab-active' : ''}" on:click={changeComponent} id={i}>
-                            {option.page}
-                        </div>
-                    {/if}
-                {/each}
-                {#if $authenticated.toString() === "true"}
-                    <div class="col tab-heading" on:click={logout}>Logout</div>
-                    <div class="col tab-heading tab-active">{$username} #{$userID}</div>
-                {/if}
-            </div>
-            <!-- content wrapper -->
-            <!-- this is where our main content is placed -->
-            <svelte:component
-                this={selected.component}
-                on:register_success={triggerTab}
-                on:login_success={triggerTab}
-                on:logged_out={triggerTab}
-            />
-        </div>
-    </div>
+   <Footer footerData={DATA.FOOTER_DATA}/>
 </main>
+
+
+    <!------------------------------------------->
+    <!----------------STYLE----------------------->
+    <!------------------------------------------->
+    <style>
+      #nav-bar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+    
+      .navbar {
+        padding: 0 20px !important;
+      }
+    
+      .navbar-nav li {
+        padding: 0 0 0 20px;
+      }
+    
+      .navbar-nav li a {
+        font-weight: 600;
+        text-transform: uppercase;
+        float: right;
+        text-align: left;
+      }
+    </style>
