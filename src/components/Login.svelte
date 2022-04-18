@@ -22,6 +22,7 @@
 
 		if (response.status === 200) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+			console.log(response.data.User.access_mode)
 			updateStore(response.data.User.ID, response.data.User.username, response.data.User.IsSOSActivated, response.data.token, true)
 			message = { success: true, display: response.data.message };
 			new Promise((resolve) => setTimeout(resolve, 500)).then(() => {

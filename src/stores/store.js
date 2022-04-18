@@ -1,6 +1,7 @@
 import { writable, get } from 'svelte/store';
 
 //user info
+//export let admin = writable(sessionStorage.getItem("access_mode") || false)
 export let userID = writable(sessionStorage.getItem("userID") || 0);
 export let username = writable(sessionStorage.getItem("username") || "");
 export let isSOSActivated = writable(sessionStorage.getItem("isSOSActivated") || false);
