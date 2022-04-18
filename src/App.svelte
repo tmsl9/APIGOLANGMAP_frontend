@@ -36,7 +36,7 @@
 </script>
 
 <section id="nav-bar">
-    <nav class="navbar main-bgcolor navbar-expand-md navbar-dark">
+    <nav class="navbar main-bgcolor navbar-collapse navbar-expand-md navbar-dark" style="justify-content: center;">
       <!--app navigation -->
       <ul class="nav nav-tabs">
           {#each navOptions as option, i}
@@ -47,8 +47,8 @@
       {/if}
           {/each}
       {#if $authenticated.toString() === "true"}
-                      <button on:click={logout}>Logout</button>
-                      <button>{$username} #{$userID}</button>
+                      <a class="nav-link light-color on:click" style="float:right;" on:click={logout}>Logout</a>
+                      <a class="nav-link light-color">{$username} #{$userID}</a>
                   {/if}
       </ul>
   </nav>

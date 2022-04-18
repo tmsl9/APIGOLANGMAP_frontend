@@ -195,5 +195,6 @@
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
 
+<h3 style="text-align:center;">Geolocation Map</h3>
 <div class="map" style="height:70%;width:100%" use:mapAction />
 <h3>Ola</h3>
