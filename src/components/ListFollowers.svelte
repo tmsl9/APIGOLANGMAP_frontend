@@ -3,6 +3,7 @@
         import { onMount } from "svelte";
         import { authenticated, userID } from "../stores/store";
         import { follower } from "../Routes.svelte";
+        import {each} from "svelte/internal";
 
         let isMounting = true
         let isSubmitting = false
@@ -13,13 +14,12 @@
         onMount(async () => {
                 if ($authenticated.toString() === "true") {
                         const response = await axios.get(follower.getAllFollowers, {
-                                userid: userID
+                                userid: $userID
                         })
 
-                        console.log(response.data)
                         if (response.status === 200) {
                                 if (response.data.message !== emptyListMsg){
-                                        followers = response.data.data
+                                        updateFollowers(response.data.data)
                                 }
                                 isMounting = false
                         }
@@ -37,11 +37,10 @@
 
                 if (response.status === 200) {
                         message = { success: true, display: response.data.message };
-                        new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
-                                followers.splice(i, 1); // rem follower
-                                isSubmitting = false;
-                                document.getElementById(followerID.toString()).disabled = false;
-                        });
+                        let fol
+                        each(followers, (f) => { if (f.id === followerID) { fol = f }})
+                        followers[followers.indexOf(fol)].id = -1
+                        isSubmitting = false;
                 } else {
                         message = { success: false, display: response.data.message };
                         isSubmitting = false;
@@ -57,10 +56,12 @@
                 {#if followers.length !== 0}
                         <ul class="list-group">
                                 {#each followers as follower, i}
-                                        <li class="list-group-item list-group-item-light">
-                                                {follower.username} #{follower.id}
-                                                <button type="button" id="{follower.id}" style="border-radius: 100%"
-                                                        class="btn btn-outline-danger" on:click={() => submit(follower.id, i)}>
+                                        <li class="list-group-item list-group-item-light"
+                                            style="{follower.id === -1 ? 'display:none' : ''}">
+                                                {follower.username} #{follower.id} - {i}
+                                                <button type="button" id="{follower.id}" class="btn"
+                                                        style="padding:3px 7px;border-radius:100%;background-color:red"
+                                                        on:click={() => submit(follower.id, i)}>
                                                         x
                                                 </button>
                                         </li>
