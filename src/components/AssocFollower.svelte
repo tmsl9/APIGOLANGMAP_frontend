@@ -34,7 +34,7 @@
         }
 </script>
 
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault={submit} style="height:100%">
         <!-- svelte-ignore a11y-label-has-associated-control -->
         <label>Follower ID</label>
         <input name="followerID" placeholder="Set Follower ID" bind:value={followerID} />
@@ -49,3 +49,4 @@
                 {message.display}
         </div>
 {/if}
+

@@ -52,7 +52,7 @@
 <div class="container mt-5 text-center">
     {#if !isMounting}
         <button type="button" id="update" on:click={update}
-                style="border-radius:100%;margin-left:50%;padding:20px;background-color:{sosActive ? 'red' : 'transparent'};
+                style="border-radius:100%;padding:20px;margin-bottom:2%;background-color:{sosActive ? 'red' : 'transparent'};
                 border-color:{sosActive ? 'transparent' : 'green'};color:{sosActive ? 'white' : 'green'};">
             SOS
         </button>

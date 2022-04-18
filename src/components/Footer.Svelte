@@ -53,6 +53,11 @@
   <!----------------Style----------------------->
   <!------------------------------------------->
   <style>
+    #footer{
+      position: fixed;
+            width: 100%;
+            bottom: 0;
+    }
     .footer-title {
       font-weight: bold;
       text-transform: uppercase;
