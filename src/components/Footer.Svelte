@@ -14,7 +14,8 @@
   <!----------------MARKUP----------------------->
   <!------------------------------------------->
   <section class="main-bgcolor light-color" id="footer">
-    <img src="images/wave2.png" alt="" class="wave-img" />
+    <div class="row"> <img src="images/wave2.png" alt="" class="wave-img" /></div>
+    
     <div class="container">
       <div class="row section-body">
         <div class="col-md-4 footer-box">
@@ -53,11 +54,7 @@
   <!----------------Style----------------------->
   <!------------------------------------------->
   <style>
-    #footer{
-      position: fixed;
-            width: 100%;
-            bottom: 0;
-    }
+    
     .footer-title {
       font-weight: bold;
       text-transform: uppercase;

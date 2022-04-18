@@ -3,7 +3,8 @@
     import { onMount } from "svelte";
     import { authenticated, updateStore, username } from "../stores/store";
     import { auth } from "../Routes.svelte";
-
+    import DATA from "../data/data";
+    import Footer from "./Footer.svelte";
     let isMounting = true
 
     onMount(async () => {
@@ -37,8 +38,12 @@
         </div>
       </div>
     </div>
+  
     <img src="images/wave1.png" alt="" class="wave-img" />
+    
   </section>
+
+  
   <!------------------------------------------->
   <!----------------STYLE----------------------->
   <!------------------------------------------->

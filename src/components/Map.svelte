@@ -10,9 +10,9 @@
 	*/
 	
 	import L from 'leaflet';
-	import MapToolbar from '../components/MapToolbar.svelte';
-	import MarkerPopup from '../components/MarkerPopup.svelte';
-	import * as markerIcons from '../components/markers.js';
+	import MapToolbar from './MapToolbar.svelte';
+	import MarkerPopup from './MarkerPopup.svelte';
+	import * as markerIcons from './markers.js';
 	let map;
 	
 	const markerLocations = [
@@ -166,13 +166,7 @@
 		}
 	}
 	
-	$: if(lineLayers && map) {
-		if(lines) {
-			lineLayers.addTo(map);
-		} else {
-			lineLayers.remove();
-		}
-	}
+	
 
 	function resizeMap() {
 	  if(map) { map.invalidateSize(); }
@@ -200,4 +194,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
-<div class="map" style="height:50%;width:50%" use:mapAction />
+
+<div class="map" style="height:70%;width:100%" use:mapAction />
+<h3>Ola</h3>

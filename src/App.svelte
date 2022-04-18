@@ -1,5 +1,5 @@
 <script>
-    import "./css/nav.css";
+    //import "./css/nav.css";
     import axios from "axios";
     import { authenticated, userID, username, cleanStore } from "./stores/store";
     import { navOptions } from "./Nav.svelte";
@@ -7,6 +7,7 @@
     
     import DATA from "./Data/data";
     import Footer from "./components/Footer.svelte";
+    import Map from "./components/Map.svelte"
 
     let selected = navOptions[0];
     let intSelected = 0; // selected page index
@@ -33,7 +34,7 @@
         }
     };
 </script>
-<main>
+
 <section id="nav-bar">
     <nav class="navbar main-bgcolor navbar-expand-md navbar-dark">
       <!--app navigation -->
@@ -57,8 +58,10 @@
    <!-- content wrapper -->
    <svelte:component this={selected.component}/>
 
-   <Footer footerData={DATA.FOOTER_DATA}/>
-</main>
+
+
+
+
 
 
     <!------------------------------------------->

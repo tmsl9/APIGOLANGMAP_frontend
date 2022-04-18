@@ -7,13 +7,14 @@
     import Follower from './components/Follower.svelte';
     import SOS from './components/SOS.svelte';
     import AlertTime from './components/AlertTime.svelte';
-
+    import Map from './components/Map.svelte';
 	// these are our 'pages' to navigate through (in order for this export to work the script tag MUST include context="module")
 	export const navOptions = [
 		{ page: 'Home',       component: Home,      loggedIn: "false" },
 		{ page: 'Login',      component: Login,     loggedIn: "false" },
         { page: 'Register',   component: Register,  loggedIn: "false" },
         { page: 'Position',   component: Position,  loggedIn: "true" },
+        { page: 'Map',        component: Map,       loggedIn: "true" },
         { page: 'Follower',   component: Follower,  loggedIn: "true" },
         { page: 'SOS',        component: SOS,       loggedIn: "true" },
         { page: 'Alert Time', component: AlertTime, loggedIn: "true" },
