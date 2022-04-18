@@ -145,7 +145,7 @@
 		lineLayers = createLines();
 		
 		markerLayers.addTo(map);
-		lineLayers.addTo(map);
+		//lineLayers.addTo(map);
 		
     return {
        destroy: () => {
@@ -195,6 +195,79 @@
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
 
-<h3 style="text-align:center;">Geolocation Map</h3>
-<div class="map" style="height:70%;width:100%" use:mapAction />
-<h3>Ola</h3>
+
+
+
+
+<div class="container d-flex " style="height:100%; justify-content:right">
+	<div class="col-sm-6" style="margin-right:10%">
+		
+	<div class="row">
+
+		<label for="idFilter">ID</label>
+		<input type="text" id="idFilter" placeholder="Search By Id">
+
+	</div>
+		<div class="row">
+			
+				<button>Get Last Location</button>
+			
+			
+				<button>Register Location</button>
+			
+			
+				<button>Filter Location Dates</button>
+			
+		</div>
+	
+		<div class="row">
+			<div class="col-sm-6">
+				<label for="sdFilter">Start Date</label>
+				<input type="date" id="sdFilter" name="lastname" placeholder="Search by Start Date">
+			</div>
+			<div class="col-sm-6">
+				<label for="edFilter">End Date</label>
+				<input type="date" id="sdFilter" name="lastname" placeholder="Search by End Date">
+			</div>
+		</div>
+	
+		<div class=row>
+			<table class="table">
+				<thead class="thead-dark">
+				  <tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				  </tr>
+				  <tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				  </tr>
+				  <tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				  </tr>
+				</tbody>
+			  </table>
+		</div>
+	</div>
+
+	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;"  use:mapAction ></div>
+
+</div>
+
+
+
