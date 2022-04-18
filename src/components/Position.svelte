@@ -1,13 +1,11 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import {authenticated, isSOSActivated, updateStore} from "../stores/store";
+    import { authenticated, updateStore } from "../stores/store";
     import { auth } from "../Routes.svelte";
-    import AssocPosition from "./AssocPosition.svelte";
-    import ListPosition from "./ListPosition.svelte";
+    import GeoLocation from "./GeoLocation.svelte";
 
     let isMounting = true
-    let listFollowersCompo;
 
     onMount(async () => {
         // se calhar esta condição não faz sentido, visto que ao fazer
@@ -23,9 +21,4 @@
     });
 </script>
 
-<AssocPosition/>
-
-<!-- <AssocFollower on:follower_added={(event) => { listFollowersCompo.updateFollowers(event.detail.followers) }}/> -->
-<!-- {#if !isMounting}
-    <ListFollowers bind:this={listFollowersCompo} />
-{/if} -->
+<GeoLocation/>

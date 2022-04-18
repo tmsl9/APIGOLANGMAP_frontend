@@ -3,7 +3,7 @@
         import { onMount } from "svelte";
         import { authenticated, userID } from "../stores/store";
         import { follower } from "../Routes.svelte";
-        import {each} from "svelte/internal";
+        import { each } from "svelte/internal";
 
         let isMounting = true
         let isSubmitting = false
@@ -13,9 +13,7 @@
 
         onMount(async () => {
                 if ($authenticated.toString() === "true") {
-                        const response = await axios.get(follower.getAllFollowers, {
-                                userid: $userID
-                        })
+                        const response = await axios.get(follower.getAllFollowers)
 
                         if (response.status === 200) {
                                 if (response.data.message !== emptyListMsg){
@@ -30,7 +28,6 @@
                 document.getElementById(followerID.toString()).disabled = true;
                 isSubmitting = true;
                 const response = await axios.post(follower.deassocFollower, {
-                        userid: $userID,
                         UserID: $userID,
                         FollowerUserID: followerID
                 });

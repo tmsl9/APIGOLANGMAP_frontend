@@ -14,7 +14,6 @@
                 isSubmitting = true;
 
                 const response = await axios.post(follower.assocFollower, {
-                        userid: $userID,
                         UserID: $userID,
                         FollowerUserID: parseInt(followerID)
                 });

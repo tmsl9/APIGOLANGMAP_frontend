@@ -29,7 +29,7 @@
         document.getElementById("update").disabled = true;
         isUpdating = true;
         const response = await axios.put(alert.alertTime, {
-            ID: userID,
+            ID: $userID,
             username: $username,
             alertTime: newAlertTime,
         });
