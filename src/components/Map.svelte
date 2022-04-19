@@ -173,7 +173,7 @@
 
 <svelte:window on:resize={resizeMap} />
 
-<div class="container d-flex " style="height:100%; justify-content:right">
+<div class="container d-flex" style="height:100%;overflow:auto;justify-content:safe">
 	<div class="col-sm-6" style="margin-right:10%"></div>
 	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;"  use:mapAction ></div>
 </div>
@@ -181,6 +181,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 	  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 	  crossorigin=""/>
+
+
 <style>
 	.map :global(.marker-text) {
 		width:100%;
@@ -195,4 +197,31 @@
 		width:30px;
 		transform:translateX(-50%) translateY(-25%);
 	}
+	section {
+		padding-top: 5%;
+
+	}
+
+	h2{
+		color:black;
+	}
+
+	section a {
+		text-decoration: none;
+	}
+
+
+	form{
+		padding: 2%;
+	}
+	a {
+		text-decoration: none;
+	}
+
+	label {
+		font-family: "Raleway", sans-serif;
+		font-size: 11pt;
+	}
+
 </style>
+
