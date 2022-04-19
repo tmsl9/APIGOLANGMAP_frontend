@@ -3,7 +3,7 @@
 	import Home      from './components/Home.svelte';
 	import Login     from './components/Login.svelte';
     import Register  from './components/Register.svelte';
-    import Position  from './components/Position.svelte';
+    import Position  from './components/Location.svelte';
     import Follower  from './components/Follower.svelte';
     import SOS       from './components/SOS.svelte';
     import AlertTime from './components/AlertTime.svelte';

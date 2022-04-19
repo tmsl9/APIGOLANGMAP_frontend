@@ -1,47 +1,50 @@
 <script>
-    import axios from "axios";
-    import { onMount } from "svelte";
-    import { authenticated, userID } from "../stores/store";
-    import { position } from "../Routes.svelte";
+        import axios from "axios";
+        import { onMount } from "svelte";
+        import { isAuthenticated, userID } from "../stores/store";
+        import { position } from "../Routes.svelte";
 
-    let isMounting = true
-    let message = { success: null, display: "" };
-    let positions = [];
-    const emptyListMsg = "Empty list!"
+        let isMounting = true;
+        let message = { success: null, display: "" };
+        let positions = [];
+        const emptyListMsg = "Empty list!";
 
-    onMount(async () => {
-            if ($authenticated.toString() === "true") {
-                //     if($access_mode.toString == "-1"){
-                //                 const response = await axios.get(position.getUsersLocationWithFilters, {
-                //                 userid: userID
-                //         })
+        onMount(async () => {
+                if (isAuthenticated()) {
+                        //     if($access_mode.toString == "-1"){
+                        //                 const response = await axios.get(position.getUsersLocationWithFilters, {
+                        //                 userid: userID
+                        //         })
 
-                //         console.log(response.data)
-                //         if (response.status === 200) {
-                //                 if (response.data.message !== emptyListMsg){
-                //                         positions = response.data.data
-                //                         console.log(response.data.data)
-                //                 }
-                //                 isMounting = false
-                //         }   
-                //     }else {
-                        const response = await axios.get(position.getMyLocation, {
-                                userid: userID
-                        })
-
-                        console.log(response.data)
-                        if (response.status === 200) {
-                                if (response.data.message !== emptyListMsg){
-                                        positions = response.data.data
-                                        console.log(response.data.data)
+                        //         console.log(response.data)
+                        //         if (response.status === 200) {
+                        //                 if (response.data.message !== emptyListMsg){
+                        //                         positions = response.data.data
+                        //                         console.log(response.data.data)
+                        //                 }
+                        //                 isMounting = false
+                        //         }
+                        //     }else {
+                        const response = await axios.get(
+                                position.getMyLocation,
+                                {
+                                        userid: userID,
                                 }
-                                isMounting = false
+                        );
+
+                        console.log(response.data);
+                        if (response.status === 200) {
+                                if (response.data.message !== emptyListMsg) {
+                                        positions = response.data.data;
+                                        console.log(response.data.data);
+                                }
+                                isMounting = false;
                         }
-                //     }                
-            }
-    });
-    
+                        //     }
+                }
+        });
 </script>
+
 <!-- 
 <div class="container mt-5 text-center">
     {#if !isMounting}

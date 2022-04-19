@@ -55,8 +55,6 @@
 </script>
 
 
-<section class="main-bgcolor light-color" id="banner">
-
 	<div id="card">
 		<div id="card-content">
 		  <div id="card-title">
@@ -94,8 +92,6 @@
 		</div>
 	  </div>
     
-    <img src="images/wave1.png" alt="" class="wave-img" />
-  </section>
 
 <!------------------------------------------->
   <!----------------STYLE----------------------->

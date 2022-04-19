@@ -1,30 +1,32 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { userID, username, authenticated, updateStore } from "../stores/store";
+    import { userID, username, isAuthenticated, updateStore } from "../stores/store";
     import { auth, alert } from "../Routes.svelte";
 
     let message = { success: null, display: "" };
-    let isMounting = true
-    let isUpdating = false
+    let isMounting = true;
+    let isUpdating = false;
     let oldAlertTime = 0;
     let newAlertTime = 0;
 
     onMount(async () => {
-        if ($authenticated.toString() === "true") {
-            const response = await axios.get(auth.getUser)
+        if (isAuthenticated()) {
+            const response = await axios.get(auth.getUser);
 
             if (response.status === 200) {
-                updateStore(response.data.user.ID, response.data.user.username, response.data.user.IsSOSActivated, null, null)
-                oldAlertTime = response.data.user.alertTime
-                newAlertTime = response.data.user.alertTime
-                isMounting = false
+                updateStore(response.data.user.ID, response.data.user.username, response.data.user.IsSOSActivated, null, null);
+                oldAlertTime = response.data.user.alertTime;
+                newAlertTime = response.data.user.alertTime;
+                isMounting = false;
             }
         }
     });
 
     $: update = async () => {
-        if (oldAlertTime === newAlertTime) { return }
+        if (oldAlertTime === newAlertTime) {
+            return;
+        }
 
         document.getElementById("update").disabled = true;
         isUpdating = true;
@@ -35,7 +37,7 @@
         });
 
         if (response.status === 201) {
-            oldAlertTime = newAlertTime
+            oldAlertTime = newAlertTime;
             message = { success: true, display: response.data.message };
             new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
                 isUpdating = false;
@@ -46,18 +48,14 @@
             isUpdating = false;
             document.getElementById("update").disabled = false;
         }
-    }
+    };
 </script>
 
 <div class="container mt-5 text-center">
     {#if !isMounting}
-        <h4>
-            Alert time then: {oldAlertTime}h
-        </h4>
-        <h4 style="color: {oldAlertTime !== newAlertTime ? '#e78309' : 'white'}">
-            Alert time now: {newAlertTime}h
-        </h4>
-        <input type=range min="1" max="48" bind:value={newAlertTime} />
+        <h4>Alert time then: {oldAlertTime}h</h4>
+        <h4 style="color: {oldAlertTime !== newAlertTime ? '#e78309' : 'white'}">Alert time now: {newAlertTime}h</h4>
+        <input type="range" min="1" max="48" bind:value={newAlertTime} />
 
         {#if oldAlertTime !== newAlertTime}
             <button type="button" id="update" on:click={update}>
