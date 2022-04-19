@@ -3,9 +3,18 @@
 	import MapToolbar from './MapToolbar.svelte';
 	import MarkerPopup from './MarkerPopup.svelte';
 	import * as markerIcons from './markers.js';
+	import {onMount} from "svelte";
+	import {coordinates, isAuthenticated} from "../stores/store";
+	import axios from "axios";
+	import {follower} from "../Routes.svelte";
+	import {updateFollowers} from "./ListFollowers.svelte";
+
+	onMount(async () => {
+		console.log($coordinates.coords===undefined)
+	});
 
 	let map;
-	
+
 	const markerLocations = [
 		[29.8283, -96.5795],
 		[37.8283, -90.5795],
@@ -15,26 +24,26 @@
 		[36.8283, -100.5795],
 		[38.40, -122.5795],
 	];
-	
+
 	const initialView = [39.8283, -98.5795];
 	function createMap(container) {
-	  let m = L.map(container, {preferCanvas: true }).setView(initialView, 5);
-    L.tileLayer(
-	    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-	    {
-	      attribution: `&copy;<a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>,
+		let m = L.map(container, {preferCanvas: true }).setView(initialView, 5);
+		L.tileLayer(
+				'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+				{
+					attribution: `&copy;<a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>,
 	        &copy;<a href="https://carto.com/attributions" target="_blank">CARTO</a>`,
-	      subdomains: 'abcd',
-	      maxZoom: 14,
-	    }
-	  ).addTo(m);
+					subdomains: 'abcd',
+					maxZoom: 14,
+				}
+		).addTo(m);
 
-    return m;
-  }
-	
+		return m;
+	}
+
 	let eye = true;
 	let lines = true;
-	
+
 	let toolbar = L.control({ position: 'topright' });
 	let toolbarComponent;
 	toolbar.onAdd = (map) => {
@@ -59,7 +68,7 @@
 			toolbarComponent = null;
 		}
 	};
-	
+
 	// Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
 	// `createFn` will be called whenever the popup is being created, and should create and return the component.
 	function bindPopup(marker, createFn) {
@@ -82,9 +91,9 @@
 			}
 		});
 	}
-	
+
 	let markers = new Map();
-	
+
 	function markerIcon(count) {
 		let html = `<div class="map-marker"><div>${markerIcons.library}</div><div class="marker-text">${count}</div></div>`;
 		return L.divIcon({
@@ -92,7 +101,7 @@
 			className: 'map-marker'
 		});
 	}
-	
+
 
 	function createMarker(loc) {
 		let count = Math.ceil(Math.random() * 25);
@@ -105,48 +114,48 @@
 					count
 				}
 			});
-			
+
 			c.$on('change', ({detail}) => {
 				count = detail;
 				marker.setIcon(markerIcon(count));
 			});
-			
+
 			return c;
 		});
-		
+
 		return marker;
 	}
-	
+
 	function createLines() {
 		return L.polyline(markerLocations, { color: '#E4E', opacity: 0.5 });
 	}
 
 	let markerLayers;
 	let lineLayers;
-  function mapAction(container) {
-    map = createMap(container); 
+	function mapAction(container) {
+		map = createMap(container);
 		toolbar.addTo(map);
-		
+
 		markerLayers = L.layerGroup()
- 		for(let location of markerLocations) {
- 			let m = createMarker(location);
+		for(let location of markerLocations) {
+			let m = createMarker(location);
 			markerLayers.addLayer(m);
- 		}
-		
+		}
+
 		lineLayers = createLines();
-		
+
 		markerLayers.addTo(map);
 		//lineLayers.addTo(map);
-		
-    return {
-       destroy: () => {
-				 toolbar.remove();
-				 map.remove();
-				 map = null;
-			 }
-    };
+
+		return {
+			destroy: () => {
+				toolbar.remove();
+				map.remove();
+				map = null;
+			}
+		};
 	}
-	
+
 	// We could do these in the toolbar's click handler but this is an example
 	// of modifying the map with reactive syntax.
 	$: if(markerLayers && map) {
@@ -156,16 +165,22 @@
 			markerLayers.remove();
 		}
 	}
-	
-	
 
 	function resizeMap() {
-	  if(map) { map.invalidateSize(); }
-  }
-
+		if(map) { map.invalidateSize(); }
+	}
 </script>
+
 <svelte:window on:resize={resizeMap} />
 
+<div class="container d-flex " style="height:100%; justify-content:right">
+	<div class="col-sm-6" style="margin-right:10%"></div>
+	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;"  use:mapAction ></div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+	  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	  crossorigin=""/>
 <style>
 	.map :global(.marker-text) {
 		width:100%;
@@ -175,90 +190,9 @@
 		color:#EEE;
 		border-radius:0.5rem;
 	}
-	
+
 	.map :global(.map-marker) {
 		width:30px;
 		transform:translateX(-50%) translateY(-25%);
 	}
 </style>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-
-
-
-
-
-<div class="container d-flex " style="height:100%; justify-content:right">
-	<div class="col-sm-6" style="margin-right:10%">
-		
-	<div class="row">
-
-		<label for="idFilter">ID</label>
-		<input type="text" id="idFilter" placeholder="Search By Id">
-
-	</div>
-		<div class="row">
-			
-				<button>Get Last Location</button>
-			
-			
-				<button>Register Location</button>
-			
-			
-				<button>Filter Location Dates</button>
-			
-		</div>
-	
-		<div class="row">
-			<div class="col-sm-6">
-				<label for="sdFilter">Start Date</label>
-				<input type="date" id="sdFilter" name="lastname" placeholder="Search by Start Date">
-			</div>
-			<div class="col-sm-6">
-				<label for="edFilter">End Date</label>
-				<input type="date" id="sdFilter" name="lastname" placeholder="Search by End Date">
-			</div>
-		</div>
-	
-		<div class=row>
-			<table class="table">
-				<thead class="thead-dark">
-				  <tr>
-					<th scope="col">#</th>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Handle</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-				  </tr>
-				  <tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				  </tr>
-				  <tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-				  </tr>
-				</tbody>
-			  </table>
-		</div>
-	</div>
-
-	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;"  use:mapAction ></div>
-
-</div>
-
-
-

@@ -1,8 +1,7 @@
 <script>
     import axios from "axios";
     import { onMount, onDestroy } from "svelte";
-    import { userID, coordinates, updateCoordinates } from "../stores/store";
-    import { get } from 'svelte/store';
+    import { userID, currentCoordinates, updateCurrentCoordinates } from "../stores/store";
     import { position } from "../Routes.svelte";
 
     let message = { success: null, display: "" };
@@ -15,10 +14,11 @@
         if (navigator.geolocation) {
             _geoWatch = navigator.geolocation.watchPosition(
                 p => {
-                    updateCoordinates([{
-                        latitude: p.coords.latitude,
-                        longitude: p.coords.longitude
-                    }])
+                    updateCurrentCoordinates({
+                        Latitude: p.coords.latitude,
+                        Longitude: p.coords.longitude,
+                        UpdatedAt: new Date(p.timestamp)
+                    })
                     isMounting = false
                 },
                 console.error,
@@ -43,8 +43,8 @@
 
         const response = await axios.post(position.registerLocation, {
             UserID: $userID,
-            Latitude: get(coordinates)[0].latitude,
-            Longitude: get(coordinates)[0].longitude
+            Latitude: $currentCoordinates.Latitude,
+            Longitude: $currentCoordinates.Longitude
         });
         if (response.status === 200) {
             message = { success: true, display: response.data.msg };
@@ -60,7 +60,7 @@
 
 {#if !isMounting}
     <form on:submit|preventDefault={submit} style="display:inline">
-        Current position: {get(coordinates)[0].latitude}, {get(coordinates)[0].longitude}
+        Current position: {$currentCoordinates.Latitude}, {$currentCoordinates.Longitude}
         <button type="submit" id="submit" style="margin-left: 20px">
                 {#if isSubmitting}Registering...{:else}Register{/if}
         </button>

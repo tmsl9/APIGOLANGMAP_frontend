@@ -30,7 +30,7 @@
             this.registerLocation = "/position/"
             this.getMyLocation = "/position/"
             this.getLocationHistory = "/position/history"
-            this.deleteLocation = "/position"
+            this.deleteLocation = "/position/"
             this.getUsersLocationWithFilters = "/position/filter"
             this.getAllUsersUnderXKms = "/position/users_under_xkms"
         }

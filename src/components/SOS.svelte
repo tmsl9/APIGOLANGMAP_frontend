@@ -31,7 +31,7 @@
             username: $username,
         });
 
-        if (response.status === 201) {
+        if (response.status === 200) {
             updateStore(null, null, !isSOSActivated(), null, null);
             updateMsg(true);
             isUpdating = false;
@@ -56,7 +56,7 @@
                 color:{$SOSActivated.toString() === 'true' ? 'white' : 'green'};">SOS</button>
 
         {#if message.success != null}
-            <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
+            <div class="alert {$SOSActivated.toString() === 'true' ? 'alert-success' : 'alert-danger'}" role="alert">
                 {message.display}
             </div>
         {/if}
