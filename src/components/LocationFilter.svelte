@@ -166,7 +166,97 @@
 </script>
 <svelte:window on:resize={resizeMap} />
 
+
+
+
+
+
+
+<div class="container d-flex " style="height:100%;overflow:auto; justify-content:safe">
+	<div class="col-sm-6" style="margin-right:10%">
+		<div id="card" style="margin-top:4.5%">
+			<div id="card-content">
+			  <div id="card-title">
+				<h2>Filters</h2>
+				<div class="underline-title"></div>
+			  </div>
+			<div class="row">
+				<button id="lastLocation" class="submit">Get Last Location</button>
+				<button id="locationHistory" class="submit">Location History</button>
+				<button id="followerLocation" class="submit">Follower Locations</button>
+			</div>
+			 
+				
+			<div id="card-title">
+				<h2>Filters</h2>
+				<div class="underline-title"></div>
+			  </div>
+				<div class="underline-title"></div>
+				<input id="searchID" class="form-content" name="username" type="number" autocomplete="on" required />
+
+
+
+			<div class="row" style="margin-top:2%">
+				<table class="table table-striped">
+					<thead>
+					  <tr>
+						<th>Username</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>John</td>
+						<td>Doe</td>
+						<td>john@example.com</td>
+					  </tr>
+					  <tr>
+						<td>Mary</td>
+						<td>Moe</td>
+						<td>mary@example.com</td>
+					  </tr>
+					  <tr>
+						<td>July</td>
+						<td>Dooley</td>
+						<td>july@example.com</td>
+					  </tr>
+					</tbody>
+				  </table>
+			</div>
+			  
+			</div>
+		  </div>
+	</div>
+	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;"  use:mapAction ></div>
+
+</div>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+crossorigin=""/>
+
 <style>
+
+.submit {
+  background: -webkit-linear-gradient(right, #ffd900 0%, #ed9121 100%);
+  border: none;
+  border-radius: 21px;
+  box-shadow: 0px 1px 8px #24c64f;
+  cursor: pointer;
+  color: white;
+  font-family: "Raleway SemiBold", sans-serif;
+  height: 42.3px;
+  margin: 0 auto;
+  margin-top: 10px;
+  transition: 0.25s;
+  height:max-content;
+  width: 153px;
+}
+.submit:hover {
+  box-shadow: 0px 1px 18px #24c64f;
+}
 	.map :global(.marker-text) {
 		width:100%;
 		text-align:center;
@@ -180,85 +270,110 @@
 		width:30px;
 		transform:translateX(-50%) translateY(-25%);
 	}
-</style>
+    section {
+      padding-top: 5%;
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-
-
-
-
-
-<div class="container d-flex " style="height:100%; justify-content:right">
-	<div class="col-sm-6" style="margin-right:10%">
-		
-	<div class="row">
-
-		<label for="idFilter">ID</label>
-		<input type="text" id="idFilter" placeholder="Search By Id">
-
-	</div>
-		<div class="row">
-			
-				<button>Get Last Location</button>
-			
-			
-				<button>Register Location</button>
-			
-			
-				<button>Filter Location Dates</button>
-			
-		</div>
+    }
+  
+    h2{
+		color:black;
+	}
+  
+    section a {
+      text-decoration: none;
+    }
+  
+    .wave-img {
+      width: 100%;
+      height: auto;
+    }
 	
-		<div class="row">
-			<div class="col-sm-6">
-				<label for="sdFilter">Start Date</label>
-				<input type="date" id="sdFilter" name="lastname" placeholder="Search by Start Date">
-			</div>
-			<div class="col-sm-6">
-				<label for="edFilter">End Date</label>
-				<input type="date" id="sdFilter" name="lastname" placeholder="Search by End Date">
-			</div>
-		</div>
-	
-		<div class=row>
-			<table class="table">
-				<thead class="thead-dark">
-				  <tr>
-					<th scope="col">#</th>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Handle</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-				  </tr>
-				  <tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				  </tr>
-				  <tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-				  </tr>
-				</tbody>
-			  </table>
-		</div>
-	</div>
+	form{
+		padding: 2%;
+	}
+	a {
+  text-decoration: none;
+}
 
-	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;"  use:mapAction ></div>
+label {
+  font-family: "Raleway", sans-serif;
+  font-size: 11pt;
+}
+#forgot-pass {
+  color: #2dbd6e;
+  font-family: "Raleway", sans-serif;
+  font-size: 10pt;
+  margin-top: 3px;
+  text-align: right;
+}
+#card {
+  background: #fbfbfb;
+  border-radius: 8px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
+  height: 635px;
+  margin: 6rem auto 8.1rem auto;
+  margin-top: 3px;
+  width: 560px;
 
-</div>
+}
+#card-content {
+  padding: 12px 44px;
+}
+#card-title {
+  font-family: "Raleway Thin", sans-serif;
+  letter-spacing: 4px;
+  padding-bottom: 23px;
+  padding-top: 13px;
+  text-align: center;
+}
+#signup {
+  color: #2dbd6e;
+  font-family: "Raleway", sans-serif;
+  font-size: 10pt;
+  margin-top: 16px;
+  text-align: center;
+}
+#submit {
+  background: -webkit-linear-gradient(right, #a6f77b, #2dbd6e);
+  border: none;
+  border-radius: 21px;
+  box-shadow: 0px 1px 8px #24c64f;
+  cursor: pointer;
+  color: white;
+  font-family: "Raleway SemiBold", sans-serif;
+  height: 42.3px;
+  margin: 0 auto;
+  margin-top: 50px;
+  transition: 0.25s;
+  width: 153px;
+}
+#submit:hover {
+  box-shadow: 0px 1px 18px #24c64f;
+}
+.form {
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+}
+.form-border {
+  background: -webkit-linear-gradient(right, #a6f77b, #2ec06f);
+  height: 1px;
+  width: 100%;
+}
+.form-content {
+  background: #fbfbfb;
+  border-radius: 8px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
 
+  padding-top: 14px;
+}
+.underline-title {
+  background: -webkit-linear-gradient(right, #a6f77b, #2ec06f);
+  height: 2px;
+  margin: -1.1rem auto 0 auto;
+  width: 89px;
+}
 
+  </style>
 
+  

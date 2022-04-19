@@ -24,4 +24,4 @@
 
 <GeoLocation />
 <LocationFilter />
-<Map />
+
