@@ -1,5 +1,4 @@
 <script context="module">
-
     export const home = new class {
         constructor() {
             this.home = "/"

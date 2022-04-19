@@ -56,13 +56,11 @@
   
   </section>
    <!-- content wrapper -->
-   <svelte:component this={selected.component}/>
-
-
-
-
-
-
+   <svelte:component
+   this={selected.component}
+   on:register_success={triggerTab}
+   on:login_success={triggerTab}
+   on:logged_out={triggerTab}/>
 
     <!------------------------------------------->
     <!----------------STYLE----------------------->
