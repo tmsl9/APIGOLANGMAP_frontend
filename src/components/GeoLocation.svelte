@@ -59,7 +59,7 @@
 </script>
 
 {#if !isMounting}
-    <form on:submit|preventDefault={submit} style="display:inline">
+    <form on:submit|preventDefault={submit} style="display:flex; justify-content:center;">
         Current position: {$currentCoordinates.Latitude}, {$currentCoordinates.Longitude}
         <button type="submit" id="submit" style="margin-left: 20px">
                 {#if isSubmitting}Registering...{:else}Register{/if}
