@@ -4,10 +4,13 @@
     import { userID, coordinates, updateCoordinates } from "../stores/store";
     import { get } from 'svelte/store';
     import { position } from "../Routes.svelte";
+
     let message = { success: null, display: "" };
     let isMounting = true
     let isSubmitting = false
+
     let _geoWatch;
+
     onMount(async () => {
         if (navigator.geolocation) {
             _geoWatch = navigator.geolocation.watchPosition(
@@ -33,9 +36,11 @@
             navigator.geolocation.clearWatch(_geoWatch);
         }
     });
+
     $: submit = async () => {
         document.getElementById("submit").disabled = true;
         isSubmitting = true;
+
         const response = await axios.post(position.registerLocation, {
             UserID: $userID,
             Latitude: get(coordinates)[0].latitude,

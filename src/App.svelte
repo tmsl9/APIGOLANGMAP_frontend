@@ -1,16 +1,11 @@
 <script>
-    //import "./css/nav.css";
     import axios from "axios";
     import { authenticated, userID, username, cleanStore } from "./stores/store";
     import { navOptions } from "./Nav.svelte";
     import { auth } from "./Routes.svelte";
-    
-    import DATA from "./Data/data";
-    
-    import Map from "./components/Map.svelte"
 
     let selected = navOptions[0];
-    let intSelected = 0; // selected page index
+    let intSelected = 0;
 
     function changeComponent(event) {
         selected = navOptions[event.target.id];
@@ -28,9 +23,9 @@
     $: logout = async () => {
         const response = await axios.post(auth.logout, {});
         if (response.status === 200) {
-            axios.defaults.headers.common['Authorization'] = '';
-            cleanStore()
-            triggerTab({ detail: { tab: "Home" }});
+            axios.defaults.headers.common["Authorization"] = "";
+            cleanStore();
+            triggerTab({ detail: { tab: "Home" } });
         }
     };
 </script>
@@ -70,20 +65,29 @@
        
         top: 0;
         z-index: 10;
-      }
-    
-      .navbar {
+    }
+
+    .navbar {
         padding: 0 20px !important;
-      }
-    
-      .navbar-nav li {
+    }
+
+    .navbar-nav li {
         padding: 0 0 0 20px;
-      }
-    
-      .navbar-nav li a {
+    }
+
+    .navbar-nav li a {
         font-weight: 600;
         text-transform: uppercase;
         float: right;
         text-align: left;
-      }
-    </style>
+    }
+
+    #banner {
+        padding-top: 2%;
+    }
+
+    .wave-img {
+        width: 100%;
+        height: auto;
+    }
+</style>

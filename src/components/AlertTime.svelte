@@ -29,7 +29,7 @@
         document.getElementById("update").disabled = true;
         isUpdating = true;
         const response = await axios.put(alert.alertTime, {
-            ID: userID,
+            ID: $userID,
             username: $username,
             alertTime: newAlertTime,
         });
@@ -54,7 +54,7 @@
         <h4>
             Alert time then: {oldAlertTime}h
         </h4>
-        <h4 style="color: {oldAlertTime !== newAlertTime ? 'dodgerblue' : 'white'}">
+        <h4 style="color: {oldAlertTime !== newAlertTime ? '#e78309' : 'white'}">
             Alert time now: {newAlertTime}h
         </h4>
         <input type=range min="1" max="48" bind:value={newAlertTime} />

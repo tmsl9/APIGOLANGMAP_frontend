@@ -4,7 +4,9 @@
     import { authenticated, updateStore } from "../stores/store";
     import { auth } from "../Routes.svelte";
     import GeoLocation from "./GeoLocation.svelte";
+
     let isMounting = true
+
     onMount(async () => {
         // se calhar esta condição não faz sentido, visto que ao fazer
         // o seguinte pedido já se vê se está realmente autenticado.
