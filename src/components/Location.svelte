@@ -4,7 +4,6 @@
     import { isAuthenticated, updateStore } from "../stores/store";
     import { auth } from "../Routes.svelte";
     import GeoLocation from "./GeoLocation.svelte";
-    import LocationFilter from "./LocationFilter.svelte";
     import Map from "./Map.svelte";
 
     let isMounting = true;
@@ -23,5 +22,5 @@
 </script>
 
 <GeoLocation />
-<LocationFilter />
+<Map />
 

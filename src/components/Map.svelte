@@ -4,10 +4,8 @@
 	import MarkerPopup from './MarkerPopup.svelte';
 	import * as markerIcons from './markers.js';
 	import {onMount} from "svelte";
-	import {coordinates, isAuthenticated} from "../stores/store";
-	import axios from "axios";
-	import {follower} from "../Routes.svelte";
-	import {updateFollowers} from "./ListFollowers.svelte";
+	import {coordinates} from "../stores/store";
+	import LocationFilter from "./LocationFilter.svelte";
 
 	onMount(async () => {
 		console.log($coordinates.coords===undefined)
@@ -174,8 +172,10 @@
 <svelte:window on:resize={resizeMap} />
 
 <div class="container d-flex" style="height:100%;overflow:auto;justify-content:safe">
-	<div class="col-sm-6" style="margin-right:10%"></div>
-	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;"  use:mapAction ></div>
+	<div class="col-sm-6" style="margin-right:10%">
+		<LocationFilter/>
+	</div>
+	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;" use:mapAction></div>
 </div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
