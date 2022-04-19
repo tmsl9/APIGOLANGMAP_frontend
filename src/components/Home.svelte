@@ -4,7 +4,7 @@
     import { authenticated, updateStore, username } from "../stores/store";
     import { auth } from "../Routes.svelte";
     import DATA from "../data/data";
-    import Footer from "./Footer.svelte";
+    
     let isMounting = true
 
     onMount(async () => {

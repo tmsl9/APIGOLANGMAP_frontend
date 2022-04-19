@@ -6,7 +6,7 @@
     import { auth } from "./Routes.svelte";
     
     import DATA from "./Data/data";
-    import Footer from "./components/Footer.svelte";
+    
     import Map from "./components/Map.svelte"
 
     let selected = navOptions[0];
@@ -69,7 +69,7 @@
     <!------------------------------------------->
     <style>
       #nav-bar {
-        position: sticky;
+       
         top: 0;
         z-index: 10;
       }
