@@ -35,7 +35,7 @@
             IsSOSActivated: $isSOSActivated,
         });
 
-        if (response.status === 200 || response.status === 406) {
+        if (response.status === 201 || response.status === 406) {
             updateStore(null, null, !sosActive, null, null)
             updateSOSActive()
             updateMsg(true)

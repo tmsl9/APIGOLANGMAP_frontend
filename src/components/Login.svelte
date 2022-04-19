@@ -40,74 +40,55 @@
 	};
 </script>
 
+<!------------------------------------------->
+<!----------------MARKUP----------------------->
+<!------------------------------------------->
+<div class="row" style="display:flex;justify-content:center;">
+    <form on:submit|preventDefault={submit}>
+        <h1>👤</h1>
+        <!-- svelte-ignore a11y-label-has-associated-control -->
+        <label>Username</label>
+        <input name="username" placeholder="Set Your Username" bind:value={username} />
 
+        <!-- svelte-ignore a11y-label-has-associated-control -->
+        <label>Password</label>
+        <input name="password" type="password" bind:value={password} placeholder="Set Your password" />
 
-  <!------------------------------------------->
-  <!----------------MARKUP----------------------->
-  <!------------------------------------------->
-  <section class="main-bgcolor light-color" id="banner">
-    <div class="container">
-      <div class="row" style="display:flex;justify-content:center;">
+        <button type="submit" id="submit">
+            {#if isLoading}Logging in...{:else}Log in 🔒{/if}
+        </button>
 
-       
-		<form on:submit|preventDefault={submit}>		
-				<h1>👤</h1>
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label>Username</label>
-				<input name="username" placeholder="Set Your Username" bind:value={username} />
+        {#if message.success != null}
+            <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
+                {message.display}
+            </div>
+        {/if}
+    </form>
+</div>
 
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label>Password</label>
-				<input name="password" type="password" bind:value={password} placeholder="Set Your password" />
-
-				<button type="submit" id="submit">
-					{#if isLoading}Logging in...{:else}Log in 🔒{/if}
-				</button>
-
-				{#if message.success != null}
-					<div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
-						{message.display}
-					</div>
-				{/if}
-			
-		</form>
-        
-      </div>
-    </div>
-    <img src="images/wave1.png" alt="" class="wave-img" />
-  </section>
-  <!------------------------------------------->
-  <!----------------STYLE----------------------->
-  <!------------------------------------------->
-  <style>
-    section {
-      padding-top: 5%;
-    }
-  
+<!------------------------------------------->
+<!----------------STYLE----------------------->
+<!------------------------------------------->
+<style>
     h1 {
       font-size: 40px;
       font-weight: 600;
       margin-top: 100px;
       text-transform: uppercase;
     }
-  
+
     .watch-btn {
       margin: auto 20px;
       position: relative;
       top: 8px;
     }
-  
+
     section a {
       text-decoration: none;
     }
-  
-    .wave-img {
-      width: 100%;
-      height: auto;
+
+    form{
+        padding: 2%;
     }
-	
-	form{
-		padding: 2%;
-	}
-  </style>
+</style>
 

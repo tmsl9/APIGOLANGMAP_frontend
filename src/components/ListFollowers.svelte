@@ -55,7 +55,7 @@
                                 {#each followers as follower, i}
                                         <li class="list-group-item list-group-item-light"
                                             style="{follower.id === -1 ? 'display:none' : ''}">
-                                                {follower.username} #{follower.id} - {i}
+                                                {follower.username} #{follower.id}
                                                 <button type="button" id="{follower.id}" class="btn"
                                                         style="padding:3px 7px;border-radius:100%;background-color:red"
                                                         on:click={() => submit(follower.id, i)}>

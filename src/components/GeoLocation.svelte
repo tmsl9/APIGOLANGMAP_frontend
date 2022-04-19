@@ -48,7 +48,7 @@
             Longitude: get(coordinates)[0].longitude
         });
 
-        if (response.status === 201) {
+        if (response.status === 200) {
             message = { success: true, display: response.data.msg };
             isSubmitting = false;
             document.getElementById("submit").disabled = false;
