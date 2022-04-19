@@ -33,7 +33,7 @@
         <p>Welcome, register on our APP! One step to do it!</p>
         {/if}
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 d-flex" style="justify-content:center; align-items:center;">
         <img src="images/map-logo.png" alt="" width="70%" class="img-fluid" />
       </div>
     </div>
