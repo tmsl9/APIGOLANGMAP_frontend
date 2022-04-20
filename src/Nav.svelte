@@ -15,7 +15,6 @@
 		{ page: 'Login',      component: Login,     loggedIn: "false" },
         { page: 'Register',   component: Register,  loggedIn: "false" },
         { page: 'Location',   component: Location,  loggedIn: "true" },
-        { page: 'Map',        component: Map,       loggedIn: "true" },
         { page: 'Follower',   component: Follower,  loggedIn: "true" },
         { page: 'SOS',        component: SOS,       loggedIn: "true" },
         { page: 'Alert Time', component: AlertTime, loggedIn: "true" },

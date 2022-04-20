@@ -1,15 +1,16 @@
 <script>
-	import LocalTable from './LocalTable.svelte'
+
 	import axios from "axios";
 	import { position } from "../Routes.svelte";
 	import { coordinates, currentCoordinates, updateCoordinates } from "../stores/store";
-	import { each } from "svelte/internal";
-
+	import TableComponent from './TableComponent.svelte'
 	let message = { success: null, display: "" };
 	let isSubmitting = false
-	let startDate = "init"
-	let endDate = "init"
+	let startDate = ""
+	let endDate = ""
+	let followerID = 0
 	let checked = false
+
 
 	const type = {
 		current:   "current",
@@ -19,66 +20,76 @@
 	}
 
 	$: last_location = async () => {
-		document.getElementById("submit").disabled = true;
+		document.getElementById("last_location").disabled = true;
 		isSubmitting = true;
 		const response = await axios.get(position.getMyLocation);
 		if (response.status === 200) {
 			updateCoordinates([response.data.location], type.last)
 			message = { success: true, display: response.data.msg };
 			isSubmitting = false;
-			document.getElementById("submit").disabled = false;
+			document.getElementById("last_location").disabled = false;
 		} else {
 			message = { success: false, display: response.data.msg };
 			isSubmitting = false;
-			document.getElementById("submit").disabled = false;
+			document.getElementById("last_location").disabled = false;
 		}
 	}
 	$: location_history = async () => {
-		document.getElementById("submit").disabled = true;
+		document.getElementById("location_history").disabled = true;
 		isSubmitting = true;
 		// test with valid dates, see if there is necessity of parsing date
 		const response = await axios.post(position.getLocationHistory, {
-			Start: startDate,
-			End: endDate
+			Start: checked ? startDate : "",
+			End: checked ? endDate : ""
 		});
 		if (response.status === 200) {
 			updateCoordinates(response.data.locations, type.history)
 			let extra = response.data.extra === undefined ? "" : response.data.extra
 			message = { success: true, display: response.data.message + extra };
 			isSubmitting = false;
-			document.getElementById("submit").disabled = false;
+			document.getElementById("location_history").disabled = false;
 		} else {
 			message = { success: false, display: response.data.message };
 			isSubmitting = false;
-			document.getElementById("submit").disabled = false;
+			document.getElementById("location_history").disabled = false;
 		}
 	}
 	$: delete_location = async (locationID) => {
 		document.getElementById(locationID.toString()).disabled = true;
 		isSubmitting = true;
-		const response = await axios.delete(position.deleteLocation, { id: locationID });
+		const response = await axios.delete(position.deleteLocation, { id: locationID });}
+
+	$: follower_locations = async () => {
+		document.getElementById("follower_locations").disabled = true;
+		isSubmitting = true;
+
+		let dates = []
+		if (checked) {
+			dates = endDate === "" ? [ startDate ] : [ startDate, endDate ]
+		}
+		const response = await axios.post(position.getUsersLocationWithFilters, {
+			UserId: [followerID],
+			Dates: dates
+		});
 		if (response.status === 200) {
+			updateCoordinates(response.data.locations, type.history)
 			message = { success: true, display: response.data.message };
-			let coord;
-			// testttttt
-			let coords = $coordinates.coords
-			each(coords, (c) => { if (c.ID === locationID) { coord = c; }});
-			coords[coords.indexOf(coord)].ID = -1;
-			updateCoordinates(response.data.locations, $coordinates.type)
 			isSubmitting = false;
+			document.getElementById("follower_locations").disabled = false;
 		} else {
 			message = { success: false, display: response.data.message };
-			document.getElementById(locationID.toString()).disabled = false;
 			isSubmitting = false;
+			document.getElementById("follower_locations").disabled = false;
 		}
-	};
+	}
 </script>
 <div id="card" style="margin-top:4.5%">
 	<div id="card-content">
-	  <div id="card-title">
-		<h2>Filters</h2>
-		<div class="underline-title"></div>
-	  </div>
+		<div id="card-title">
+			<h2>Filters</h2>
+			<div class="underline-title"></div>
+		</div>
+	</div>
 	<div class="row">
 		<button class="submit" id="current_location" on:click={() => updateCoordinates([$currentCoordinates], type.current)}>
 			Current Location
@@ -90,11 +101,12 @@
 	 
 	<div clas="row" style="color:black;display:flex; justfiy-content:center; margin-top:10%">
 		
-			<label for="searchID" style="text-align:center;">Search By ID</label>
+			<label for="searchID" style="text-align:center;margin-left:1%; margin-top:3%">Search By ID</label>
 			<div class="col-sm-6">
-				<input id="searchID" class="form-content" style="margin-top:10%" name="username" type="number" autocomplete="on" required />
+				<input id="idFilter" class="form-content" style="margin-top:3%"  type="number" bind:value={followerID} autocomplete="on" />
 			</div>
-			<button id="followerLocation" class="submit" style="margin-top:0%;">Follower Location</button>
+			<button class="submit" id="follower_locations"  style="margin-top:0%;" on:click={follower_locations}>Follower Location</button>
+
 			<!--button id="followerLocation" on:click={followerLocation}>Follower Locations</button-->
 
 
@@ -110,12 +122,12 @@
 			<input type="date" id="edFilter" name="filterDate" bind:value={endDate} placeholder="Search by End Date" disabled={!checked}>
 		</div>
 	</div>
-
-	<div class="row" style="margin-top:2%">
-		<LocalTable></LocalTable>
+	<div class="col-sm-12">
+	<div class="row" style="margin-top:2%;height:200px; overflow-y: scroll">
+		
+		<TableComponent></TableComponent>
 	</div>
-	  
-	</div>
+</div>
 	{#if message.success != null}
 	<div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
 		{message.display}
