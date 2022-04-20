@@ -53,7 +53,7 @@
 </section>
 <!-- content wrapper -->
 
-<section class="main-bgcolor light-color" id="banner" style="height: 100%; overflow:auto">
+<section class="main-bgcolor light-color" id="banner" style="height: 100%; overflow:hidden">
     <div class="container" style="height: 100%;">
         <!-- content wrapper -->
         <svelte:component this={selected.component}

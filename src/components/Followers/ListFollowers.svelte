@@ -90,8 +90,6 @@
         {/if}
 
         {#if message.success != null}
-                <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
-                        {message.display}
-                </div>
+        {message.success ? swal(message.display,"", "success") : swal(message.display,"" ,"error") }
         {/if}
 </div>

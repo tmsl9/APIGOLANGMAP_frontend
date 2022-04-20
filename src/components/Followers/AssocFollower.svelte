@@ -60,9 +60,7 @@
 </form>
 <div class="row" style="margin:3%; margin-top: 8%">
 {#if message.success != null}
-        <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
-                {message.display}
-        </div>
+{message.success ? swal(message.display,"", "success") : swal(message.display,"" ,"error") }
 {/if}
 		</div>
 	</div>

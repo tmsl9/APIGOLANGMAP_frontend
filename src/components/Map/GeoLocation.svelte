@@ -1,5 +1,6 @@
 <script>
     import axios from "axios";
+    import Swal from "sweetalert2";
     import { onMount, onDestroy } from "svelte";
     import { userID, currentCoordinates, updateCurrentCoordinates } from "../../stores/store";
     import { position } from "../../Routes.svelte";
@@ -7,7 +8,7 @@
     let message = { success: null, display: "" };
     let isMounting = true
     let isSubmitting = false
-
+    let timerInterval;
     let _geoWatch;
 
     onMount(async () => {
@@ -67,9 +68,7 @@
     </form>
 {/if}
 {#if message.success != null}
-    <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
-        {message.display}
-    </div>
+{message.success ? swal(message.display,"", "success") : swal(message.display,"" ,"error") }
 {/if}
 
 <style>
