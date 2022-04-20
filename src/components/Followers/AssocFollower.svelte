@@ -44,24 +44,19 @@
                     <label style="color:black;">Follower ID</label>
                     <input type="number" name="followerID" style="width:75%; display:flex; justify-content:center;align-items:center;"  min=0 placeholder="Set Follower ID" bind:value={followerID} />
                 </div>
-
                 <button type="submit" id="submit" style="margin-top:4%;width:100px;display:inline-block;">
                     {#if isSubmitting}Adding...{:else}Add{/if}
                 </button>
 
             </div>
 
-
         </form>
         <div class="row" style="margin:3%; margin-top: 8%">
             {#if message.success != null}
-                <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
-                    {message.display}
-                </div>
+                {message.success ? swal(message.display,"", "success") : swal(message.display,"" ,"error") }
             {/if}
         </div>
     </div>
-
 </div>
 
 
