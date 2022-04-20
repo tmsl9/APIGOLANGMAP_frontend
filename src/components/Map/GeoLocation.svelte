@@ -82,7 +82,7 @@
 	  cursor: pointer;
 	  color: white;
 	  font-family: "Raleway SemiBold", sans-serif;
-	  height: 42.3px;
+	  height: 5%;
 	  transition: 0.25s;
 	  width: auto;
           display: flex;

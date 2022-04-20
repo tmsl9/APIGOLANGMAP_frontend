@@ -40,7 +40,7 @@
 	  border-radius: 8px;
 	  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
 	  height: auto;
-	  width: 500PX;
+	  width: 125%;
 	}
 	#card-content {
 	  padding-top: 20px;

@@ -49,8 +49,9 @@
     </nav>
 </section>
 <!-- content wrapper -->
-<section class="main-bgcolor light-color" id="banner" style="height: 100%">
-    <div class="container" style="height: 100%">
+
+<section class="main-bgcolor light-color" id="banner" style="height: 100%; overflow:auto">
+    <div class="container" style="height: 100%;">
         <!-- content wrapper -->
         <svelte:component this={selected.component}
             on:register_success={triggerTab}
@@ -73,10 +74,6 @@
 
     .navbar {
         padding: 0 20px !important;
-    }
-
-    .navbar-nav li {
-        padding: 0 0 0 20px;
     }
 
     .navbar-nav li a {
