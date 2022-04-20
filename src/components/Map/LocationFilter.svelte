@@ -1,8 +1,8 @@
 <script>
 
 	import axios from "axios";
-	import { position } from "../Routes.svelte";
-	import { coordinates, currentCoordinates, updateCoordinates } from "../stores/store";
+	import { position } from "../../Routes.svelte";
+	import { coordinates, currentCoordinates, updateCoordinates } from "../../stores/store";
 	import TableComponent from './TableComponent.svelte'
 	let message = { success: null, display: "" };
 	let isSubmitting = false

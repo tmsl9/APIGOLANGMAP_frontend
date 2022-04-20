@@ -1,8 +1,8 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { userID, username, isAuthenticated, updateStore } from "../stores/store";
-    import { auth, alert } from "../Routes.svelte";
+    import { userID, username, isAuthenticated, updateStore } from "../../stores/store";
+    import { auth, alert } from "../../Routes.svelte";
 
     let message = { success: null, display: "" };
     let isMounting = true;

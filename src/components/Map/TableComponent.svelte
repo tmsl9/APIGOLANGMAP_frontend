@@ -1,8 +1,9 @@
 <script>
-	import { coordinates} from "../stores/store";
+	import { coordinates} from "../../stores/store";
 
 	function formatDate(d) {
 		var date = new Date(d);
+		{setTimeout(500)}
 		return ("00" + (date.getMonth() + 1)).slice(-2)
 				+ "/" + ("00" + date.getDate()).slice(-2)
 				+ "/" + date.getFullYear() + " "
@@ -24,12 +25,14 @@
 	</thead>
 	<tbody>
 		{#if $coordinates.coords !== undefined}
+			
+			
 			{#each $coordinates.coords as coords}
 				<tr>
 					<th scope="row">{formatDate(coords.UpdatedAt)}</th>
 					<td>{coords.Latitude}</td>
 					<td>{coords.Longitude}</td>
-					<td>{$coordinates.type}{coords.ID !== undefined ? coords.ID : ""}</td>
+					<td>{$coordinates.type}</td>
 				</tr>
 			{/each}
 			{:else}

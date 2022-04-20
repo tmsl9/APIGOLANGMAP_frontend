@@ -1,13 +1,13 @@
 <script context="module">
 	// main navigation for the application
 	import Home      from './components/Home.svelte';
-	import Login     from './components/Login.svelte';
-    import Register  from './components/Register.svelte';
-    import Location  from './components/Location.svelte';
-    import Follower  from './components/Follower.svelte';
-    import SOS       from './components/SOS.svelte';
-    import AlertTime from './components/AlertTime.svelte';
-    import Map       from './components/Map.svelte';
+	import Login     from './components/Auth/Login.svelte';
+    import Register  from './components/Auth/Register.svelte';
+    import Location  from './components/Map/Map.svelte';
+    import Follower  from './components/Followers/Follower.svelte';
+    import SOS       from './components/SOS/SOS.svelte';
+    import AlertTime from './components/Alert/AlertTime.svelte';
+
 
     // these are our 'pages' to navigate through (in order for this export to work the script tag MUST include context="module")
 	export const navOptions = [

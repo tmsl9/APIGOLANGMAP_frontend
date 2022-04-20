@@ -1,52 +1,64 @@
 <script>
-	import "../css/auth.css";
-	import axios from "axios";
-	import { createEventDispatcher } from "svelte";
-	import { updateStore } from "../stores/store";
-	import { auth } from "../Routes.svelte";
+
+	import axios from 'axios';
+	import { createEventDispatcher } from 'svelte'
+    import { auth } from '../../Routes.svelte'
 
 	const dispatch = createEventDispatcher();
-	let username = "";
-	let password = "";
+	let username = ""
+	let password = ""
+	let confirm_password = ""
+	let color_val_pass = ""
 	let message = { success: null, display: "" };
+	let validPw = false;
 	let isLoading = false;
-	let isSuccess = false;
 
 	$: submit = async () => {
-		isLoading = true;
-		document.getElementById("submit").disabled = true;
-		const response = await axios.post(auth.login, {
-			username,
-			password,
-		});
-
-		if (response.status === 200) {
-			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-			updateStore(response.data.User.ID, response.data.User.username, response.data.User.IsSOSActivated, response.data.token, true)
-			message = { success: true, display: response.data.message };
-			new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
-				isLoading = false;
-				isSuccess = true
-				dispatch("login_success", { tab: "Home" });
-				document.getElementById("submit").disabled = false;
+		if (validPw){
+			isLoading = true;
+			document.getElementById("submit").disabled = true;
+			const response = await axios.post(auth.register, {
+				username,
+				password
 			});
+			if(response.status === 201){
+				message = { success: true, display: response.data.message };
+				new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
+					isLoading = false;
+					dispatch('register_success', { tab: "Login" })
+					document.getElementById("submit").disabled = false;
+				})
+			}else {
+				message = { success: false, display: response.data.message };
+				isLoading = false;
+				document.getElementById("submit").disabled = false;
+			}
 		} else {
-			message = { success: false, display: response.data.message };
-			isLoading = false;
-			isSuccess = false;
-			document.getElementById("submit").disabled = false;
+			message = { success: false, display: "Confirm your password!" };
 		}
-	};
+	}
+
+	function validate_password() {
+		if (confirm_password !== "") {
+			if (password !== confirm_password){
+				color_val_pass = "#b42020"
+				validPw = false;
+			}else {
+				color_val_pass = "#31a21f"
+				validPw = true;
+			}
+		} else {
+			color_val_pass = ""
+			validPw = false;
+		}
+	}
 </script>
 
-  <!------------------------------------------->
-  <!----------------MARKUP----------------------->
-  <!------------------------------------------->
 
 	<div id="card">
 		<div id="card-content">
 		  <div id="card-title">
-			<h2>LOGIN</h2>
+			<h2>Create An Account</h2>
 			<div class="underline-title"></div>
 		  </div>
 		  <form on:submit|preventDefault={submit} class="form">
@@ -57,13 +69,20 @@
 			<div class="form-border"></div>
 			<label for="password" style="padding-top:22px;color:black;">&nbsp;Password
 			  </label>
-			<input id="password" class="form-content" name="password" type="password" bind:value={password} placeholder="Set Your password" required />
+			<input id="password" class="form-content" name="password" type="password" bind:value={password} placeholder="Set Your password"  on:input="{validate_password}" style="background-color:{color_val_pass}" required />
+			<div class="form-border"></div>
+			
+			<label for="confirmpassword" style="padding-top:22px;color:black;">&nbsp;Confirm Your Password
+			</label>
+			<input id="confirmpassword" class="form-content" name="password" type="password" placeholder="Confirm Your Password"
+			bind:value={confirm_password} on:input="{validate_password}" style="background-color:{color_val_pass}" required />
 			<div class="form-border"></div>
 			
 			<button type="submit" id="submit">
-				{#if isLoading}Logging in...{:else}Log in 🔒{/if}
+				{#if isLoading}Registering...{:else}Register 🔒{/if}
 			</button>
-
+			<br/>
+			<br/>
 			{#if message.success != null}
             <div class="alert {message.success ? 'alert-success' : 'alert-danger'}" role="alert">
                 {message.display}
@@ -72,7 +91,9 @@
 		  </form>
 		</div>
 	  </div>
-  <!------------------------------------------->
+    
+
+<!------------------------------------------->
   <!----------------STYLE----------------------->
   <!------------------------------------------->
   <style>
@@ -116,7 +137,7 @@ label {
   background: #fbfbfb;
   border-radius: 8px;
   box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
-  height: 410px;
+  height: 560px;
   margin: 6rem auto 8.1rem auto;
   margin-top: 3px;
   width: 329px;

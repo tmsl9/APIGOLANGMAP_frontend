@@ -1,8 +1,8 @@
 <script>
         import axios from "axios";
         import { createEventDispatcher } from "svelte";
-        import { userID } from "../stores/store";
-        import { follower } from "../Routes.svelte";
+        import { userID } from "../../stores/store";
+        import { follower } from "../../Routes.svelte";
 
         const dispatch = createEventDispatcher();
         let message = { success: null, display: "" };

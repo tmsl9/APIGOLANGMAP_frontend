@@ -4,7 +4,7 @@
 	import MarkerPopup from './MarkerPopup.svelte';
 	import * as markerIcons from './markers.js';
 	import {onMount} from "svelte";
-	import {coordinates} from "../stores/store";
+	import {coordinates} from "../../stores/store";
 	import LocationFilter from "./LocationFilter.svelte";
 
 	onMount(async () => {

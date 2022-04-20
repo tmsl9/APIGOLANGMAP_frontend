@@ -1,8 +1,8 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { isAuthenticated, updateStore } from "../stores/store";
-    import { auth } from "../Routes.svelte";
+    import { isAuthenticated, updateStore } from "../../stores/store";
+    import { auth } from "../../Routes.svelte";
     import AssocFollower from "./AssocFollower.svelte";
     import ListFollowers from "./ListFollowers.svelte";
 

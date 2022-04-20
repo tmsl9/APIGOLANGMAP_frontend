@@ -1,8 +1,8 @@
 <script>
         import axios from "axios";
         import { onMount } from "svelte";
-        import { isAuthenticated, userID } from "../stores/store";
-        import { follower } from "../Routes.svelte";
+        import { isAuthenticated, userID } from "../../stores/store";
+        import { follower } from "../../Routes.svelte";
         import { each } from "svelte/internal";
 
         let isMounting = true;
