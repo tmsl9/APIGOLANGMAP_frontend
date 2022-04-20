@@ -3,29 +3,17 @@
 	import MapToolbar from './MapToolbar.svelte';
 	import MarkerPopup from './MarkerPopup.svelte';
 	import * as markerIcons from './markers.js';
-	import {onMount} from "svelte";
 	import {coordinates} from "../../stores/store";
 	import LocationFilter from "./LocationFilter.svelte";
 
-	onMount(async () => {
-		console.log($coordinates.coords===undefined)
-	});
-
 	let map;
 
-	const markerLocations = [
-		[29.8283, -96.5795],
-		[37.8283, -90.5795],
-		[43.8283, -102.5795],
-		[48.40, -122.5795],
-		[43.60, -79.5795],
-		[36.8283, -100.5795],
-		[38.40, -122.5795],
-	];
+	let markerLocations = [];
 
-	const initialView = [39.8283, -98.5795];
+	let initialView = [15.785282, 47.567475];
+
 	function createMap(container) {
-		let m = L.map(container, {preferCanvas: true }).setView(initialView, 5);
+		let m = L.map(container, {preferCanvas: true}).setView(initialView, 5);
 		L.tileLayer(
 				'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
 				{
@@ -100,7 +88,6 @@
 		});
 	}
 
-
 	function createMarker(loc) {
 		let count = Math.ceil(Math.random() * 25);
 		let icon = markerIcon(count);
@@ -130,10 +117,8 @@
 
 	let markerLayers;
 	let lineLayers;
-	function mapAction(container) {
-		map = createMap(container);
-		toolbar.addTo(map);
 
+	function addMarkerLayersToMap(){
 		markerLayers = L.layerGroup()
 		for(let location of markerLocations) {
 			let m = createMarker(location);
@@ -144,6 +129,13 @@
 
 		markerLayers.addTo(map);
 		//lineLayers.addTo(map);
+	}
+
+	function mapAction(container) {
+		map = createMap(container);
+		toolbar.addTo(map);
+
+		addMarkerLayersToMap()
 
 		return {
 			destroy: () => {
@@ -167,13 +159,26 @@
 	function resizeMap() {
 		if(map) { map.invalidateSize(); }
 	}
+
+	export function syncLocationsMap() {
+		markerLayers.remove()
+		markerLocations = []
+		$coordinates.coords.forEach((c) => { markerLocations.push([c.Latitude, c.Longitude]) })
+		addMarkerLayersToMap()
+		viewMarker(markerLocations[0])
+	}
+
+	export const viewMarker = (marker) => {
+		initialView = marker
+		map.setView(initialView, map.getZoom())
+	}
 </script>
 
 <svelte:window on:resize={resizeMap} />
 
 <div class="container d-flex" style="height:100%;overflow:auto;justify-content:safe">
 	<div class="col-sm-6" style="margin-right:10%">
-		<LocationFilter/>
+		<LocationFilter on:syncLocationsMap={syncLocationsMap} on:viewMarker={(event) => viewMarker(event.detail)}/>
 	</div>
 	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;" use:mapAction></div>
 </div>
@@ -181,7 +186,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 	  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 	  crossorigin=""/>
-
 
 <style>
 	.map :global(.marker-text) {
@@ -199,7 +203,6 @@
 	}
 	section {
 		padding-top: 5%;
-
 	}
 
 	h2{
@@ -209,7 +212,6 @@
 	section a {
 		text-decoration: none;
 	}
-
 
 	form{
 		padding: 2%;

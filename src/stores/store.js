@@ -40,7 +40,7 @@ export function isSOSActivated(){
 export function cleanStore(){
     updateStore(0, "", false, "", false)
     updateCurrentCoordinates({})
-    updateCoordinates({})
+    coordinates.set({})
 }
 
 // if param is null, store field won't be updated

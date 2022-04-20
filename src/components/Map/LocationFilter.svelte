@@ -1,9 +1,11 @@
 <script>
-
 	import axios from "axios";
+	import { createEventDispatcher } from "svelte";
 	import { position } from "../../Routes.svelte";
 	import { currentCoordinates, updateCoordinates } from "../../stores/store";
 	import TableComponent from './TableComponent.svelte'
+
+	const dispatch = createEventDispatcher();
 	let message = { success: null, display: "" };
 	let isSubmitting = false
 	let startDate = ""
@@ -18,12 +20,18 @@
 		followers: "followers",
 	}
 
+	$: current_location = () => {
+		updateCoordinates([$currentCoordinates], type.current)
+		dispatch("syncLocationsMap")
+	}
+
 	$: last_location = async () => {
 		document.getElementById("last_location").disabled = true;
 		isSubmitting = true;
 		const response = await axios.get(position.getMyLocation);
 		if (response.status === 200) {
 			updateCoordinates([response.data.location], type.last)
+			dispatch("syncLocationsMap")
 			message = { success: true, display: response.data.msg };
 			isSubmitting = false;
 			document.getElementById("last_location").disabled = false;
@@ -38,11 +46,12 @@
 		isSubmitting = true;
 		// test with valid dates, see if there is necessity of parsing date
 		const response = await axios.post(position.getLocationHistory, {
-			Start: checked ? startDate : "",
-			End: checked ? endDate : ""
+			Start: checked ? startDate : "a",
+			End: checked ? endDate : "a"
 		});
 		if (response.status === 200) {
 			updateCoordinates(response.data.locations, type.history)
+			dispatch("syncLocationsMap")
 			let extra = response.data.extra === undefined ? "" : response.data.extra
 			message = { success: true, display: response.data.message + extra };
 			isSubmitting = false;
@@ -67,7 +76,8 @@
 			Dates: dates
 		});
 		if (response.status === 200) {
-			updateCoordinates(response.data.locations, type.history)
+			updateCoordinates(response.data.locations, type.followers)
+			dispatch("syncLocationsMap")
 			message = { success: true, display: response.data.message };
 			isSubmitting = false;
 			document.getElementById("follower_locations").disabled = false;
@@ -87,9 +97,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<button class="submit" id="current_location" on:click={() => updateCoordinates([$currentCoordinates], type.current)}>
-			Current Location
-		</button>
+		<button class="submit" id="current_location" on:click={current_location}>Current Location</button>
 		<button class="submit" id="last_location" on:click={last_location}>Last Location</button>
 		<button class="submit" id="location_history" on:click={location_history}>Location History</button>
 	</div>
@@ -120,7 +128,7 @@
 
 	<div class="col-sm-12">
 		<div class="row" style="margin-top:2%;height:200px; overflow-y: scroll">
-			<TableComponent></TableComponent>
+			<TableComponent on:viewMarker={(event) => dispatch("viewMarker", event.detail)}/>
 		</div>
 	</div>
 	{#if message.success != null}

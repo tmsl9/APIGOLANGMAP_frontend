@@ -1,9 +1,11 @@
 <script>
+	import { createEventDispatcher } from "svelte";
 	import { coordinates } from "../../stores/store";
+
+	const dispatch = createEventDispatcher();
 
 	function formatDate(d) {
 		var date = new Date(d);
-		{setTimeout(500)}
 		return ("00" + (date.getMonth() + 1)).slice(-2)
 				+ "/" + ("00" + date.getDate()).slice(-2)
 				+ "/" + date.getFullYear() + " "
@@ -16,7 +18,6 @@
 <table class="table">
 	<thead>
 		<tr> 
-			
 			<th scope="col">Date</th>
 			<th scope="col">Latitude</th>
 			<th scope="col"> Longitude</th>
@@ -25,10 +26,8 @@
 	</thead>
 	<tbody>
 		{#if $coordinates.coords !== undefined}
-			
-			
 			{#each $coordinates.coords as coords}
-				<tr>
+				<tr on:click={dispatch("viewMarker", [coords.Latitude, coords.Longitude])}>
 					<th scope="row">{formatDate(coords.UpdatedAt)}</th>
 					<td>{coords.Latitude}</td>
 					<td>{coords.Longitude}</td>
