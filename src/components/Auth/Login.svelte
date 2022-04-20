@@ -1,5 +1,5 @@
 <script>
-
+  import "../../css/auth.css"
 	import axios from "axios";
 	import { createEventDispatcher } from "svelte";
 	import { updateStore } from "../../stores/store";

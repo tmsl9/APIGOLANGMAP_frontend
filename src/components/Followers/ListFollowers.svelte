@@ -48,7 +48,7 @@
         export function updateFollowers(followersUpd) { followers = followersUpd; }
 </script>
 
-<div class="container mt-5 text-center">
+<div class="container text-center">
         {#if !isMounting}
                 {#if followers.length !== 0}
                         <ul class="list-group">
