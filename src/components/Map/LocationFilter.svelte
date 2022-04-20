@@ -6,7 +6,6 @@
 	import TableComponent from './TableComponent.svelte'
 
 	const dispatch = createEventDispatcher();
-	let message = { success: null, display: "" };
 	let isSubmitting = false
 	let startDate = ""
 	let endDate = ""
@@ -32,11 +31,11 @@
 		if (response.status === 200) {
 			updateCoordinates([response.data.location], type.last)
 			dispatch("syncLocationsMap")
-			message = { success: true, display: response.data.msg };
+			swal(response.data.msg, "", "success")
 			isSubmitting = false;
 			document.getElementById("last_location").disabled = false;
 		} else {
-			message = { success: false, display: response.data.msg };
+			swal(response.data.msg, "", "error")
 			isSubmitting = false;
 			document.getElementById("last_location").disabled = false;
 		}
@@ -53,11 +52,11 @@
 			updateCoordinates(response.data.locations, type.history)
 			dispatch("syncLocationsMap")
 			let extra = response.data.extra === undefined ? "" : response.data.extra
-			message = { success: true, display: response.data.message + extra };
+			swal(response.data.message + extra, "", "success")
 			isSubmitting = false;
 			document.getElementById("location_history").disabled = false;
 		} else {
-			message = { success: false, display: response.data.message };
+			swal(response.data.message, "", "error")
 			isSubmitting = false;
 			document.getElementById("location_history").disabled = false;
 		}
@@ -78,11 +77,11 @@
 		if (response.status === 200) {
 			updateCoordinates(response.data.locations, type.followers)
 			dispatch("syncLocationsMap")
-			message = { success: true, display: response.data.message };
+			swal(response.data.message, "", "success")
 			isSubmitting = false;
 			document.getElementById("follower_locations").disabled = false;
 		} else {
-			message = { success: false, display: response.data.message };
+			swal(response.data.message, "", "error")
 			isSubmitting = false;
 			document.getElementById("follower_locations").disabled = false;
 		}
@@ -95,48 +94,45 @@
 			<h2>Filters</h2>
 			<div class="underline-title"></div>
 		</div>
-	
-	<div class="row">
-		{#if $currentCoordinates.Latitude !== undefined}
-			<button class="submit" id="current_location" on:click={current_location}>Current Location</button>
-		{/if}
-		<button class="submit" id="last_location" on:click={last_location}>Last Location</button>
-		<button class="submit" id="location_history" on:click={location_history}>Location History</button>
-	</div>
 
-	<div class="row" style="color:black;display:flex; justify-content:center; margin-top:10%">
-		<div class="col-sm-6" style="margin-left:2%;">
-			<label for="idFilter" style="color:black;">Follower ID</label>
-			<input type="number" name="idFilter" id="idFilter" min=0 bind:value={followerID} style="width:75%; margin-top:3%;display:flex; justify-content:center;align-items:center;">
+		<div class="row">
+			{#if $currentCoordinates.Latitude !== undefined}
+				<button class="submit" id="current_location" on:click={current_location}>Current Location</button>
+			{/if}
+			<button class="submit" id="last_location" on:click={last_location}>Last Location</button>
+			<button class="submit" id="location_history" on:click={location_history}>Location History</button>
 		</div>
-		<button class="submit" id="follower_locations"  style="margin-top:0%;" on:click={follower_locations}>Follower Location</button>
-	</div>
 
-	<div class="col-sm-12">
-		<div class="row" style="margin-top:10%">
-			<div class="col-sm-5">
-				<input type="date" id="sdFilter" style="width:100%;background-color:white;color:black; margin-top:3%;display:flex; justify-content:center;align-items:center;" name="filterDate" bind:value={startDate} placeholder="Search by Start Date" disabled={!checked}>
+		<div class="row" style="color:black;display:flex; justify-content:center; margin-top:10%">
+			<div class="col-sm-6" style="margin-left:2%;">
+				<label for="idFilter" style="color:black;">Follower ID</label>
+				<input type="number" name="idFilter" id="idFilter" min=0 bind:value={followerID} style="width:75%; margin-top:3%;display:flex; justify-content:center;align-items:center;">
 			</div>
+			<button class="submit" id="follower_locations"  style="margin-top:0%;" on:click={follower_locations}>Follower Location</button>
+		</div>
 
-			<div class="col-sm-5">
-				<input type="date"  style="width:100%; background-color:white; color:black;margin-top:3%;display:flex; justify-content:center;align-items:center;" id="edFilter" name="filterDate" bind:value={endDate} placeholder="Search by End Date" disabled={!checked}>
+		<div class="col-sm-12">
+			<div class="row" style="margin-top:10%">
+				<div class="col-sm-5">
+					<input type="date" id="sdFilter" style="width:100%;background-color:white;color:black; margin-top:3%;display:flex; justify-content:center;align-items:center;" name="filterDate" bind:value={startDate} placeholder="Search by Start Date" disabled={!checked}>
+				</div>
+
+				<div class="col-sm-5">
+					<input type="date"  style="width:100%; background-color:white; color:black;margin-top:3%;display:flex; justify-content:center;align-items:center;" id="edFilter" name="filterDate" bind:value={endDate} placeholder="Search by End Date" disabled={!checked}>
+				</div>
+				<div class="col-sm-2">
+					<input type="checkbox" id="filterDate" name="filterDate" bind:checked>
+				</div>
 			</div>
-			<div class="col-sm-2">
-				<input type="checkbox" id="filterDate" name="filterDate" bind:checked>
+		</div>
+
+
+		<div class="col-sm-12">
+			<div class="row" style="margin-top:2%;height:200px; overflow-y: scroll">
+				<TableComponent on:viewMarker={(event) => dispatch("viewMarker", event.detail)}/>
 			</div>
 		</div>
 	</div>
-
-
-	<div class="col-sm-12">
-		<div class="row" style="margin-top:2%;height:200px; overflow-y: scroll">
-			<TableComponent on:viewMarker={(event) => dispatch("viewMarker", event.detail)}/>
-		</div>
-	</div>
-	{#if message.success != null}
-	{message.success ? swal(message.display,"", "success") : swal(message.display,"" ,"error") }
-	{/if}
-</div>
 </div>
 <style>
 	.submit {
@@ -188,7 +184,7 @@
 		padding-top: 13px;
 		text-align: center;
 	}
-	
+
 	.underline-title {
 		background: -webkit-linear-gradient(right, #a6f77b, #2ec06f);
 		height: 2px;

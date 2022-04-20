@@ -8,7 +8,7 @@
         constructor() {
             this.alertTime = "/alert/time/"
         }
-	}
+    }
     export const auth = new class {
         constructor() {
             this.getUser = "/auth/getUser"
@@ -17,7 +17,7 @@
             this.register = "/auth/register"
             this.refresh_token = "/auth/refresh_token"
         }
-	}
+    }
     export const follower = new class {
         constructor() {
             this.getAllFollowers = "/follower/"
@@ -45,5 +45,5 @@
         constructor() {
             this.socket = "/socket"
         }
-	}
+    }
 </script>

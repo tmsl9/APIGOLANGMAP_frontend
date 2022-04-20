@@ -44,7 +44,7 @@
             {#if $authenticated.toString() === "true"}
                 <!-- svelte-ignore a11y-missing-attribute -->
                 <a class="nav-link light-color on:click" style="float:right;" on:click={logout}>Logout</a>
-                
+
                 <!-- svelte-ignore a11y-missing-attribute -->
                 <a class="nav-link light-color">{$username} #{$userID}</a>
             {/if}
@@ -57,9 +57,9 @@
     <div class="container" style="height: 100%;">
         <!-- content wrapper -->
         <svelte:component this={selected.component}
-            on:register_success={triggerTab}
-            on:login_success={triggerTab}
-            on:logged_out={triggerTab}
+                          on:register_success={triggerTab}
+                          on:login_success={triggerTab}
+                          on:logged_out={triggerTab}
         />
     </div>
     <img src="images/wave1.png" alt="" class="wave-img" style="position: fixed;bottom: 0"/>

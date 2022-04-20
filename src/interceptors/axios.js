@@ -15,7 +15,7 @@ axios.interceptors.response.use(resp => resp, async error => {
 
     // if it's login or logout don't refresh token
     if (error.config.url === auth.login || error.config.url === auth.logout) {
-       return error.response
+        return error.response
     }
 
     if (error.response.status === 401 && !refresh) {

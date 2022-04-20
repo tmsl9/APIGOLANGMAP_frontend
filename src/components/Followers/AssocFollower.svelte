@@ -3,9 +3,7 @@
     import { createEventDispatcher } from "svelte";
     import { userID } from "../../stores/store";
     import { follower } from "../../Routes.svelte";
-    import ListFollowers from "./ListFollowers.svelte";
     const dispatch = createEventDispatcher();
-    let message = { success: null, display: "" };
     let isSubmitting = false
     let followerID = 0
 
@@ -19,12 +17,12 @@
         });
 
         if (response.status === 201) {
-            message = { success: true, display: response.data.message };
+            swal(response.data.message, "", "success")
             isSubmitting = false;
             dispatch("follower_added", {followers: response.data.followers})
             document.getElementById("submit").disabled = false;
         } else {
-            message = { success: false, display: response.data.message };
+            swal(response.data.message, "", "error")
             isSubmitting = false;
             document.getElementById("submit").disabled = false;
         }
@@ -51,11 +49,6 @@
             </div>
 
         </form>
-        <div class="row" style="margin:3%; margin-top: 8%">
-            {#if message.success != null}
-                {message.success ? swal(message.display,"", "success") : swal(message.display,"" ,"error") }
-            {/if}
-        </div>
     </div>
 </div>
 

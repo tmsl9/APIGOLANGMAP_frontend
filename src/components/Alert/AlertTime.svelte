@@ -58,7 +58,7 @@
         <input type="range" min="1" max="48" bind:value={newAlertTime} />
 
         {#if oldAlertTime !== newAlertTime}
-            <button type="button" id="update" on:click={update}>
+            <button class="submit" type="button" id="update" on:click={update}>
                 {#if isUpdating}Updating...{:else}Update{/if}
             </button>
         {/if}
@@ -72,3 +72,24 @@
         </div>
     {/if}
 </div>
+
+<style>
+    .submit {
+        background: -webkit-linear-gradient(right, #ffd900 0%, #ed9121 100%);
+        border: none;
+        border-radius: 21px;
+        box-shadow: 0px 1px 8px #24c64f;
+        cursor: pointer;
+        color: white;
+        font-family: "Raleway SemiBold", sans-serif;
+        height: 5%;
+        margin: 0 auto;
+        margin-top: 1%;
+        transition: 0.25s;
+        height:max-content;
+        width: max-content;
+    }
+    .submit:hover {
+        box-shadow: 0px 1px 18px #24c64f;
+    }
+</style>
