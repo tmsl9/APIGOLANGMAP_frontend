@@ -18,7 +18,8 @@
 
 <table class="table">
 	<thead>
-		<tr> 
+		<tr>
+			<th scope="col">#</th>
 			<th scope="col">Date</th>
 			<th scope="col">Latitude</th>
 			<th scope="col"> Longitude</th>
@@ -27,9 +28,10 @@
 	</thead>
 	<tbody>
 		{#if $coordinates.coords !== undefined}
-			{#each $coordinates.coords as coords}
+			{#each $coordinates.coords as coords, i}
 				<tr on:click={dispatch("viewMarker", [coords.Latitude, coords.Longitude])}>
-					<th scope="row">{formatDate(coords.UpdatedAt)}</th>
+					<th scope="row">{i+1}</th>
+					<td>{formatDate(coords.UpdatedAt)}</td>
 					<td>{coords.Latitude}</td>
 					<td>{coords.Longitude}</td>
 					<td>{$coordinates.type}</td>

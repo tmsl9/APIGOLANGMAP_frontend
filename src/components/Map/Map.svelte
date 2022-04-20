@@ -88,24 +88,17 @@
 		});
 	}
 
-	function createMarker(loc) {
-		let count = Math.ceil(Math.random() * 25);
+	function createMarker(loc, count) {
 		let icon = markerIcon(count);
 		let marker = L.marker(loc, {icon});
 		bindPopup(marker, (m) => {
-			let c = new MarkerPopup({
+			return new MarkerPopup({
 				target: m,
 				props: {
-					count
+					count,
+					loc
 				}
 			});
-
-			c.$on('change', ({detail}) => {
-				count = detail;
-				marker.setIcon(markerIcon(count));
-			});
-
-			return c;
 		});
 
 		return marker;
@@ -120,9 +113,11 @@
 
 	function addMarkerLayersToMap(){
 		markerLayers = L.layerGroup()
+		var i = 0
 		for(let location of markerLocations) {
-			let m = createMarker(location);
+			let m = createMarker(location, ++i);
 			markerLayers.addLayer(m);
+			console.log(i)
 		}
 
 		lineLayers = createLines();

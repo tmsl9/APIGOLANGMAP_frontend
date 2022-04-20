@@ -97,7 +97,9 @@
 		</div>
 	
 	<div class="row">
-		<button class="submit" id="current_location" on:click={current_location}>Current Location</button>
+		{#if $currentCoordinates.Latitude !== undefined}
+			<button class="submit" id="current_location" on:click={current_location}>Current Location</button>
+		{/if}
 		<button class="submit" id="last_location" on:click={last_location}>Last Location</button>
 		<button class="submit" id="location_history" on:click={location_history}>Location History</button>
 	</div>
@@ -105,7 +107,7 @@
 	<div class="row" style="color:black;display:flex; justify-content:center; margin-top:10%">
 		<div class="col-sm-6" style="margin-left:2%;">
 			<label for="idFilter" style="color:black;">Follower ID</label>
-			<input type="number" name="idFilter" id="idFilter" bind:value={followerID} style="width:75%; margin-top:3%;display:flex; justify-content:center;align-items:center;">
+			<input type="number" name="idFilter" id="idFilter" min=0 bind:value={followerID} style="width:75%; margin-top:3%;display:flex; justify-content:center;align-items:center;">
 		</div>
 		<button class="submit" id="follower_locations"  style="margin-top:0%;" on:click={follower_locations}>Follower Location</button>
 	</div>

@@ -21,7 +21,10 @@
                     })
                     isMounting = false
                 },
-                console.error,
+                () => {
+                    updateCurrentCoordinates({})
+                    isMounting = true
+                },
                 {
                     enableHighAccuracy: true,
                     maximumAge: Infinity
@@ -31,6 +34,7 @@
             alert("Browser does not support geolocation!")
         }
     });
+
     onDestroy(() => {
         if (_geoWatch) {
             navigator.geolocation.clearWatch(_geoWatch);
