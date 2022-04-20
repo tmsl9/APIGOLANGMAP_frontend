@@ -32,13 +32,7 @@
 </script>
 
 
-<div id="card" style="margin-top:4.5%">
-	<div id="card-content">
-		<div id="card-title">
-			<h2>Add Follower</h2>
-			<div class="underline-title"></div>
-		</div>
-	</div>
+
 
 	 
 	
@@ -70,26 +64,12 @@
                 {message.display}
         </div>
 {/if}
-</div>
 		</div>
-                <div class="col-sm-12" style="width:100%; display:flex; justify-content:center;align-items:center;" >
-                        <div id="card-content">
-                                <div id="card-title">
-                                        <h2>List Followers</h2>
-                                        <div class="underline-title"></div>
-                                </div>
-                        </div>
-                </div>
-                <div class="col-sm-12" style="margin-top:0px; width:100%; display:flex; justify-content:center;align-items:center;" >
-                        <div class="row" style="margin-top:2%;height:255px;width:100%; overflow-y: scroll">
-                        
-                                
-                                <ListFollowers/>
-                        </div>
-                </div>
+	</div>
+                
 	</div>
 	
-</div>
+
 
 <style>
 

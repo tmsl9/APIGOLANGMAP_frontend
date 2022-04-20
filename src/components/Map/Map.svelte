@@ -175,7 +175,7 @@
 	<div class="col-sm-6" style="margin-right:10%">
 		<LocationFilter/>
 	</div>
-	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;" use:mapAction></div>
+	<div class="col-sm-6 map" style="height:60%;width:200%;margin-top:2%;border:1px solid black;" use:mapAction></div>
 </div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"

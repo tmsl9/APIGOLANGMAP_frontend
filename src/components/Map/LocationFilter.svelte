@@ -67,7 +67,7 @@
 			Dates: dates
 		});
 		if (response.status === 200) {
-			updateCoordinates(response.data.locations, type.history)
+			updateCoordinates(response.data.locations, type.followers)
 			message = { success: true, display: response.data.message };
 			isSubmitting = false;
 			document.getElementById("follower_locations").disabled = false;
