@@ -94,45 +94,23 @@
     
 
 <!------------------------------------------->
-  <!----------------STYLE----------------------->
-  <!------------------------------------------->
-  <style>
-    section {
-      padding-top: 5%;
+<!----------------STYLE----------------------->
+<!------------------------------------------->
+<style>
+  
+h2{
+	color:black;
+}
 
-    }
-  
-    h2{
-		color:black;
-	}
-  
-    section a {
-      text-decoration: none;
-    }
-  
-    .wave-img {
-      width: 100%;
-      height: auto;
-    }
-	
-	form{
-		padding: 2%;
-	}
-	a {
-  text-decoration: none;
+form{
+	padding: 2%;
 }
 
 label {
   font-family: "Raleway", sans-serif;
   font-size: 11pt;
 }
-#forgot-pass {
-  color: #2dbd6e;
-  font-family: "Raleway", sans-serif;
-  font-size: 10pt;
-  margin-top: 3px;
-  text-align: right;
-}
+
 #card {
   background: #fbfbfb;
   border-radius: 8px;
@@ -146,6 +124,7 @@ label {
 #card-content {
   padding: 12px 44px;
 }
+
 #card-title {
   font-family: "Raleway Thin", sans-serif;
   letter-spacing: 4px;
@@ -153,13 +132,7 @@ label {
   padding-top: 13px;
   text-align: center;
 }
-#signup {
-  color: #2dbd6e;
-  font-family: "Raleway", sans-serif;
-  font-size: 10pt;
-  margin-top: 16px;
-  text-align: center;
-}
+
 #submit {
   background: -webkit-linear-gradient(right, #a6f77b, #2dbd6e);
   border: none;
@@ -200,5 +173,5 @@ label {
   width: 89px;
 }
 
-  </style>
+</style>
 

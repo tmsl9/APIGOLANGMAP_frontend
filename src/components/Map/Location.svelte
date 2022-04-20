@@ -20,7 +20,33 @@
         }
     });
 </script>
+<div class="row">
+    <div style="margin-left:4%;">
+    <div id="card" style="margin-top:4.5%">
+        <div id="card-content">
+            <GeoLocation />
+        </div>
+    </div>
+    </div>
+</div>
 
-<GeoLocation />
 <Map />
+
+
+<style>		
+	
+	#card {
+	  background: #fbfbfb;
+	  border-radius: 8px;
+	  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
+	  height: auto;
+	  width: 125%;
+	}
+	#card-content {
+	  padding-top: 20px;
+      padding-bottom: 20px;
+	}
+	
+</style>
+
 

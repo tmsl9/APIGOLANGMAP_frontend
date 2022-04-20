@@ -59,9 +59,9 @@
 </script>
 
 {#if !isMounting}
-    <form on:submit|preventDefault={submit} style="display:flex; justify-content:center;">
-        Current position: {$currentCoordinates.Latitude}, {$currentCoordinates.Longitude}
-        <button type="submit" id="submit" style="margin-left: 20px">
+    <form on:submit|preventDefault={submit} style="display:flex;color:black; justify-content:center;">
+        <p style="margin-top:1%;">Current position: {$currentCoordinates.Latitude}, {$currentCoordinates.Longitude}</p>
+        <button type="submit" class="submit" id="submit" style="margin-left: 10px">
                 {#if isSubmitting}Registering...{:else}Register{/if}
         </button>
     </form>
@@ -71,3 +71,25 @@
         {message.display}
     </div>
 {/if}
+
+<style>
+
+	#submit {
+	  background: -webkit-linear-gradient(right, #a6f77b, #2dbd6e);
+	  border: none;
+	  border-radius: 21px;
+	  box-shadow: 0px 1px 8px #24c64f;
+	  cursor: pointer;
+	  color: white;
+	  font-family: "Raleway SemiBold", sans-serif;
+	  height: 5%;
+	  transition: 0.25s;
+	  width: auto;
+          display: flex;
+          justify-content: center;
+	}
+	#submit:hover {
+	  box-shadow: 0px 1px 18px #24c64f;
+	}
+	
+</style>

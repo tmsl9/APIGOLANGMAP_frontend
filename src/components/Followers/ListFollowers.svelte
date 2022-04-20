@@ -1,3 +1,6 @@
+<svelte:head>
+	<link rel="stylesheet" href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css" >
+</svelte:head>
 <script>
         import axios from "axios";
         import { onMount } from "svelte";
@@ -51,20 +54,34 @@
 <div class="container text-center">
         {#if !isMounting}
                 {#if followers.length !== 0}
-                        <ul class="list-group">
-                                {#each followers as follower}
-                                        <li class="list-group-item list-group-item-light" style={follower.id === -1
-                                                        ? "display:none"
-                                                        : ""}>
-                                                {follower.username} #{follower.id}
-                                                <button type="button" id={follower.id} class="btn"
-                                                        style="padding:3px 7px;border-radius:100%;background-color:red"
-                                                        on:click={() => submit(follower.id)}>
-                                                        x
-                                                </button>
-                                        </li>
-                                {/each}
-                        </ul>
+<table class="table">
+	<thead>
+		<tr> 
+			<th scope="col">#</th>
+			<th scope="col">Username</th>
+			<th scope="col"></th>
+			
+		</tr>
+	</thead>
+	<tbody>
+                
+		{#each followers as follower}
+                        {#if follower.id !== -1}
+			<tr>
+			        <td>{follower.id}</td>
+				<td>{follower.username}</td>
+				<td><button type="button" id={follower.id} class="btn btn-danger"
+
+                                        on:click={() => submit(follower.id)}>
+                                        <i class="mi mi-delete"><span class="u-sr-only"></span></i>
+                                </button></td>
+			</tr>
+                        {/if}
+		{/each}
+
+		
+	</tbody>
+</table>
                 {:else}
                         {emptyListMsg}
                 {/if}

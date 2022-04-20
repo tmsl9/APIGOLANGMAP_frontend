@@ -180,7 +180,7 @@
 	<div class="col-sm-6" style="margin-right:10%">
 		<LocationFilter on:syncLocationsMap={syncLocationsMap} on:viewMarker={(event) => viewMarker(event.detail)}/>
 	</div>
-	<div class="col-sm-6 map" style="height:70%;width:200%;margin-top:2%;border:1px solid black;" use:mapAction></div>
+	<div class="col-sm-5 map" style="overflow:hidden; height:60%;width:200%;margin-top:2%;border:1px solid black;" use:mapAction></div>
 </div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -198,32 +198,9 @@
 	}
 
 	.map :global(.map-marker) {
-		width:30px;
+		width:150%;
+		color: black;
 		transform:translateX(-50%) translateY(-25%);
 	}
-	section {
-		padding-top: 5%;
-	}
-
-	h2{
-		color:black;
-	}
-
-	section a {
-		text-decoration: none;
-	}
-
-	form{
-		padding: 2%;
-	}
-	a {
-		text-decoration: none;
-	}
-
-	label {
-		font-family: "Raleway", sans-serif;
-		font-size: 11pt;
-	}
-
 </style>
 
