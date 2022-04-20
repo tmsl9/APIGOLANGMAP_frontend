@@ -5,7 +5,6 @@
     import { auth } from "../Routes.svelte";
     import GeoLocation from "./GeoLocation.svelte";
     import Map from "./Map.svelte";
-    import LocationFilter from "./LocationFilter.svelte";
 
     let isMounting = true;
 
@@ -23,5 +22,5 @@
 </script>
 
 <GeoLocation />
-<LocationFilter />
+<Map />
 

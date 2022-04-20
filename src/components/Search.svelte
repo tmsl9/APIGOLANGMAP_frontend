@@ -81,14 +81,5 @@
     }
   </style>
   
-  <div class="search">
 
-    <input
-      type="date"
-      title={labels.placeholder}
-      placeholder={labels.placeholder}
-      bind:value={text}
-      on:keyup={onSearch} />
-
-  </div>
   

@@ -3,7 +3,7 @@
 	import Home      from './components/Home.svelte';
 	import Login     from './components/Login.svelte';
     import Register  from './components/Register.svelte';
-    import Position  from './components/Location.svelte';
+    import Location  from './components/Location.svelte';
     import Follower  from './components/Follower.svelte';
     import SOS       from './components/SOS.svelte';
     import AlertTime from './components/AlertTime.svelte';
@@ -14,7 +14,7 @@
 		{ page: 'Home',       component: Home,      loggedIn: "false" },
 		{ page: 'Login',      component: Login,     loggedIn: "false" },
         { page: 'Register',   component: Register,  loggedIn: "false" },
-        { page: 'Position',   component: Position,  loggedIn: "true" },
+        { page: 'Location',   component: Location,  loggedIn: "true" },
         { page: 'Map',        component: Map,       loggedIn: "true" },
         { page: 'Follower',   component: Follower,  loggedIn: "true" },
         { page: 'SOS',        component: SOS,       loggedIn: "true" },

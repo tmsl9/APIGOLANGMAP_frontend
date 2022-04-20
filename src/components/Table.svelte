@@ -68,6 +68,8 @@
   <style>
     .table {
       width: 100%;
+      height: 50%;
+      overflow-y: scroll;
       border-collapse: collapse;
     }
   

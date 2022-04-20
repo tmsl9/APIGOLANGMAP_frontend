@@ -24,7 +24,7 @@
                 }
         });
 
-        $: submit = async (followerID, i) => {
+        $: submit = async (followerID) => {
                 document.getElementById(followerID.toString()).disabled = true;
                 isSubmitting = true;
                 const response = await axios.post(follower.deassocFollower, {
@@ -52,13 +52,14 @@
         {#if !isMounting}
                 {#if followers.length !== 0}
                         <ul class="list-group">
-                                {#each followers as follower, i}
-                                        <li class="list-group-item list-group-item-light"style={follower.id === -1
+                                {#each followers as follower}
+                                        <li class="list-group-item list-group-item-light" style={follower.id === -1
                                                         ? "display:none"
                                                         : ""}>
                                                 {follower.username} #{follower.id}
-                                                <button type="button" id={follower.id} class="btn" style="padding:3px 7px;border-radius:100%;background-color:red"
-                                                        on:click={() => submit(follower.id, i)}>
+                                                <button type="button" id={follower.id} class="btn"
+                                                        style="padding:3px 7px;border-radius:100%;background-color:red"
+                                                        on:click={() => submit(follower.id)}>
                                                         x
                                                 </button>
                                         </li>

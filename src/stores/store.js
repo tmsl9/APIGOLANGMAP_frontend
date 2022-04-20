@@ -1,7 +1,6 @@
 import { writable, get } from 'svelte/store';
 
 //user info
-//export let admin = writable(sessionStorage.getItem("access_mode") || false)
 export let userID = writable(sessionStorage.getItem("userID") || 0);
 export let username = writable(sessionStorage.getItem("username") || "");
 export let SOSActivated = writable(sessionStorage.getItem("SOSActivated") || false);
@@ -9,13 +8,16 @@ export let SOSActivated = writable(sessionStorage.getItem("SOSActivated") || fal
 export let token = writable(sessionStorage.getItem("token") || "");
 export let authenticated = writable(sessionStorage.getItem("authenticated") || false);
 //coords
-export let coordinates = writable(sessionStorage.getItem("coordinates") || []);
+export let currentCoordinates = writable(sessionStorage.getItem("currentCoordinates") || {});
+export let coordinates = writable(sessionStorage.getItem("coordinates") || {});
 
+// subscribe
 userID.subscribe((val) => (sessionStorage.userID = val));
 username.subscribe((val) => (sessionStorage.username = val));
 SOSActivated.subscribe((val) => (sessionStorage.SOSActivated = val));
 token.subscribe((val) => (sessionStorage.token = val));
 authenticated.subscribe((val) => (sessionStorage.authenticated = val));
+currentCoordinates.subscribe((val) => (sessionStorage.currentCoordinates = val));
 coordinates.subscribe((val) => (sessionStorage.coordinates = val));
 
 // Have to manage this better.
@@ -23,7 +25,7 @@ coordinates.subscribe((val) => (sessionStorage.coordinates = val));
 // Everything else (except 'authenticated' I think) can be obtained through auth.getUser route.
 if (get(authenticated).toString() === "false" || get(token) === "" || get(userID) === "undefined"
     || get(username) === "undefined" || get(SOSActivated) === "undefined" || get(token) === "undefined"
-    || get(authenticated) === "undefined" || get(coordinates) === "undefined") {
+    || get(authenticated) === "undefined" || get(currentCoordinates) === "undefined" || get(coordinates) === "undefined") {
     cleanStore()
 }
 
@@ -37,7 +39,8 @@ export function isSOSActivated(){
 
 export function cleanStore(){
     updateStore(0, "", false, "", false)
-    updateCoordinates([])
+    updateCurrentCoordinates({})
+    updateCoordinates({})
 }
 
 // if param is null, store field won't be updated
@@ -49,6 +52,10 @@ export function updateStore(id, usrn, sos, tkn, authd) {
     if (authd != null) { authenticated.set(authd) }
 }
 
-export function updateCoordinates(coords) {
-    if (coords != null) { coordinates.set(coords) }
+export function updateCurrentCoordinates(coords) {
+    if (coords != null) { currentCoordinates.set(coords) }
+}
+
+export function updateCoordinates(coords, type) {
+    if (coords != null) { coordinates.set({ coords: coords, type: type }) }
 }
