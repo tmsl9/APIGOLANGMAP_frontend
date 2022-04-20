@@ -3,7 +3,7 @@
 
 	function formatDate(d) {
 		var date = new Date(d);
-		{setTimeout(500)}
+
 		return ("00" + (date.getMonth() + 1)).slice(-2)
 				+ "/" + ("00" + date.getDate()).slice(-2)
 				+ "/" + date.getFullYear() + " "

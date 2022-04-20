@@ -3,8 +3,8 @@ import { get } from 'svelte/store';
 import { auth } from "../Routes.svelte"
 import { token, authenticated } from "../stores/store"
 
-axios.defaults.baseURL = 'http://sheltered-mountain-58087.herokuapp.com/api/v1';
-//axios.defaults.baseURL = 'http://localhost:8081/api/v1';
+//axios.defaults.baseURL = 'http://sheltered-mountain-58087.herokuapp.com/api/v1';
+axios.defaults.baseURL = 'http://localhost:8081/api/v1';
 axios.defaults.headers.common['content-type'] = "application/json";
 axios.defaults.headers.common['Authorization'] = get(token)
 
