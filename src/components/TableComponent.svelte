@@ -14,7 +14,8 @@
 
 <table class="table">
 	<thead>
-		<tr>
+		<tr> 
+			
 			<th scope="col">Date</th>
 			<th scope="col">Latitude</th>
 			<th scope="col"> Longitude</th>
