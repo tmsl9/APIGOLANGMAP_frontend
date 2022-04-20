@@ -1,8 +1,8 @@
 <script>
     import axios from "axios";
     import { onMount, onDestroy } from "svelte";
-    import { userID, currentCoordinates, updateCurrentCoordinates } from "../stores/store";
-    import { position } from "../Routes.svelte";
+    import { userID, currentCoordinates, updateCurrentCoordinates } from "../../stores/store";
+    import { position } from "../../Routes.svelte";
 
     let message = { success: null, display: "" };
     let isMounting = true

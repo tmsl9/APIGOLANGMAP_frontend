@@ -1,5 +1,5 @@
 <script>
-	import { coordinates} from "../../stores/store";
+	import { coordinates } from "../../stores/store";
 
 	function formatDate(d) {
 		var date = new Date(d);
