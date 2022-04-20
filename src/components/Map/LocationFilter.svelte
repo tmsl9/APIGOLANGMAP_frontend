@@ -96,8 +96,8 @@
 
 	<div class="row" style="color:black;display:flex; justify-content:center; margin-top:10%">
 		<div class="col-sm-6" style="margin-left:2%;">
-			<label style="color:black;">Follower ID</label>
-			<input type="number" id="idFilter" bind:value={followerID} style="width:75%; margin-top:3%;display:flex; justify-content:center;align-items:center;">
+			<label for="idFilter" style="color:black;">Follower ID</label>
+			<input type="number" name="idFilter" id="idFilter" bind:value={followerID} style="width:75%; margin-top:3%;display:flex; justify-content:center;align-items:center;">
 		</div>
 		<button class="submit" id="follower_locations"  style="margin-top:0%;" on:click={follower_locations}>Follower Location</button>
 	</div>
