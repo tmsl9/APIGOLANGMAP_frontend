@@ -65,4 +65,5 @@
         Clicking SOS will alert your followers and update them with your current
         location, if available.
     </h4>
+
 </div>
