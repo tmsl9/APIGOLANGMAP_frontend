@@ -1,7 +1,7 @@
 <script>
     import axios from "axios";
     import { createEventDispatcher } from "svelte";
-    import { userID } from "../../stores/store";
+    import { userID } from "../../store/store";
     import { follower } from "../../Routes.svelte";
     const dispatch = createEventDispatcher();
     let isSubmitting = false

@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import { closeSocket } from "./websocketStore";
+import {closeSocket, openSocket} from "../websocket/websocket";
 
 //user info
 export let userID = writable(sessionStorage.getItem("userID") || 0);
@@ -11,6 +11,9 @@ export let authenticated = writable(sessionStorage.getItem("authenticated") || f
 //coords
 export let currentCoordinates = writable(sessionStorage.getItem("currentCoordinates") || {});
 export let coordinates = writable(sessionStorage.getItem("coordinates") || {});
+//websocket
+export let websocket = writable(sessionStorage.getItem("websocket") || null);
+
 
 // subscribe
 userID.subscribe((val) => (sessionStorage.userID = val));
@@ -20,6 +23,7 @@ token.subscribe((val) => (sessionStorage.token = val));
 authenticated.subscribe((val) => (sessionStorage.authenticated = val));
 currentCoordinates.subscribe((val) => (sessionStorage.currentCoordinates = val));
 coordinates.subscribe((val) => (sessionStorage.coordinates = val));
+websocket.subscribe((val) => (sessionStorage.websocket = val));
 
 // Have to manage this better.
 // This (clean store when value invalid) should happen if only token isn't defined.
@@ -28,6 +32,13 @@ if (get(authenticated).toString() === "false" || get(token) === "" || get(userID
     || get(username) === "undefined" || get(SOSActivated) === "undefined" || get(token) === "undefined"
     || get(authenticated) === "undefined" || get(currentCoordinates) === "undefined" || get(coordinates) === "undefined") {
     cleanStore()
+}
+
+if(get(userID) !== "undefined" && get(userID) !== 0 && get(authenticated).toString() === "true"){
+    // in case of page refresh
+    closeSocket()
+    // open new connection
+    openSocket(get(userID))
 }
 
 export function isAuthenticated(){

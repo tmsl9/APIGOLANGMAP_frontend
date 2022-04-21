@@ -1,7 +1,7 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { isAuthenticated, updateStore } from "../../stores/store";
+    import { isAuthenticated, updateStore } from "../../store/store";
     import { auth } from "../../Routes.svelte";
     import GeoLocation from "./GeoLocation.svelte";
     import Map from "./Map.svelte";

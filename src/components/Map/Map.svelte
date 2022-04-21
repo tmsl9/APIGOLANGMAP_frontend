@@ -3,7 +3,7 @@
 	import MapToolbar from './MapToolbar.svelte';
 	import MarkerPopup from './MarkerPopup.svelte';
 	import * as markerIcons from './markers.js';
-	import {coordinates} from "../../stores/store";
+	import {coordinates} from "../../store/store";
 	import LocationFilter from "./LocationFilter.svelte";
 
 	let map;

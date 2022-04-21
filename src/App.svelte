@@ -1,6 +1,6 @@
 <script>
     import axios from "axios";
-    import { userID, username, cleanStore, authenticated } from "./stores/store";
+    import { userID, username, cleanStore, authenticated } from "./store/store";
     import { navOptions } from "./Nav.svelte";
     import { auth } from "./Routes.svelte";
 

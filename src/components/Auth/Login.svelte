@@ -2,9 +2,9 @@
 	import "../../css/auth.css"
 	import axios from "axios";
 	import { createEventDispatcher } from "svelte";
-	import { updateStore, userID } from "../../stores/store";
+	import { updateStore, userID } from "../../store/store";
 	import { auth } from "../../Routes.svelte";
-	import { openSocket } from "../../stores/websocketStore";
+	import { openSocket } from "../../websocket/websocket";
 
 	const dispatch = createEventDispatcher();
 	let username = "";

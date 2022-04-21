@@ -2,7 +2,7 @@
 	import axios from "axios";
 	import { createEventDispatcher } from "svelte";
 	import { position } from "../../Routes.svelte";
-	import { currentCoordinates, updateCoordinates } from "../../stores/store";
+	import { currentCoordinates, updateCoordinates } from "../../store/store";
 	import TableComponent from './TableComponent.svelte'
 
 	const dispatch = createEventDispatcher();

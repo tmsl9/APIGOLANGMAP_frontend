@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from "svelte";
-	import { coordinates } from "../../stores/store";
+	import { coordinates } from "../../store/store";
 
 	const dispatch = createEventDispatcher();
 

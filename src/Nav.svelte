@@ -7,7 +7,7 @@
     import Follower  from './components/Followers/Follower.svelte';
     import SOS       from './components/SOS/SOS.svelte';
     import AlertTime from './components/Alert/AlertTime.svelte';
-    import AlertNearBy from './components/AlertNearBy/TableNearBy.svelte'
+    import AlertNearBy from './components/AlertNearby/TableNearby.svelte'
 
     // these are our 'pages' to navigate through (in order for this export to work the script tag MUST include context="module")
 	export const navOptions = [
