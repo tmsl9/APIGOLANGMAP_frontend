@@ -2,8 +2,9 @@
 	import "../../css/auth.css"
 	import axios from "axios";
 	import { createEventDispatcher } from "svelte";
-	import { updateStore } from "../../stores/store";
+	import { updateStore, userID } from "../../stores/store";
 	import { auth } from "../../Routes.svelte";
+	import { openSocket } from "../../stores/websocketStore";
 
 	const dispatch = createEventDispatcher();
 	let username = "";
@@ -23,12 +24,11 @@
 			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 			updateStore(response.data.User.ID, response.data.User.username, response.data.User.IsSOSActivated, response.data.token, true)
 			swal(response.data.message, "", "success")
-			new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
+			openSocket($userID)
 				isLoading = false;
 				isSuccess = true
 				dispatch("login_success", { tab: "Home" });
 				document.getElementById("submit").disabled = false;
-			});
 		} else {
 			swal(response.data.message, "", "error")
 			isLoading = false;

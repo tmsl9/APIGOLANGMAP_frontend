@@ -1,4 +1,5 @@
 import { writable, get } from 'svelte/store';
+import { closeSocket } from "./websocketStore";
 
 //user info
 export let userID = writable(sessionStorage.getItem("userID") || 0);
@@ -41,6 +42,7 @@ export function cleanStore(){
     updateStore(0, "", false, "", false)
     updateCurrentCoordinates({})
     coordinates.set({})
+    closeSocket()
 }
 
 // if param is null, store field won't be updated

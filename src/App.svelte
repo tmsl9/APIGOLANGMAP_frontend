@@ -44,15 +44,14 @@
             {#if $authenticated.toString() === "true"}
                 <!-- svelte-ignore a11y-missing-attribute -->
                 <a class="nav-link light-color on:click" style="float:right;" on:click={logout}>Logout</a>
-
                 <!-- svelte-ignore a11y-missing-attribute -->
                 <a class="nav-link light-color">{$username} #{$userID}</a>
             {/if}
         </ul>
     </nav>
 </section>
-<!-- content wrapper -->
 
+<!-- content wrapper -->
 <section class="main-bgcolor light-color" id="banner" style="height: 100%; overflow:hidden">
     <div class="container" style="height: 100%;">
         <!-- content wrapper -->
@@ -67,7 +66,6 @@
 
 <!------------------------------------------->
 <!----------------STYLE----------------------->
-
 <!------------------------------------------->
 <style>
     #nav-bar {
