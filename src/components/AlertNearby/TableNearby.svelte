@@ -44,17 +44,17 @@
                     <div class="row" style="width:100%; background-color:white; color:black;margin-top:3%;display:flex; justify-content:center;align-items:center;">
 
                         <div class="col-sm-4">
-                            <label>Latitude</label>
-                            <input type="number" step="0.00000000000001" bind:value={lat} id="lat" >
+                            <label for="lat">Latitude</label>
+                            <input type="number" step="0.00000000000001" bind:value={lat} id="lat" required >
                         </div>
 
                         <div class="col-sm-4">
-                            <label>Longitude</label>
-                            <input type="number" step="0.00000000000001"  bind:value={long} id="long">
+                            <label for="long">Longitude</label>
+                            <input type="number" step="0.00000000000001"  bind:value={long} id="long" required>
                         </div>
 
                         <div class="col-sm-4">
-                            <label>Radius</label>
+                            <label for="radius">Radius</label>
                             <input type="number" min=0 bind:value={radius} id="radius" required>
                         </div>
                     </div>

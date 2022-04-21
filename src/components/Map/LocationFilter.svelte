@@ -28,6 +28,7 @@
 		document.getElementById("last_location").disabled = true;
 		isSubmitting = true;
 		const response = await axios.get(position.getMyLocation);
+		console.log(response);
 		if (response.status === 200) {
 			updateCoordinates([response.data.location], type.last)
 			dispatch("syncLocationsMap")
@@ -35,7 +36,7 @@
 			isSubmitting = false;
 			document.getElementById("last_location").disabled = false;
 		} else {
-			swal(response.data.msg, "", "error")
+			swal(response.data.message, "", "error")
 			isSubmitting = false;
 			document.getElementById("last_location").disabled = false;
 		}

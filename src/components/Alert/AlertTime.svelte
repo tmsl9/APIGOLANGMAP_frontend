@@ -10,6 +10,7 @@
     let oldAlertTime = 0;
     let newAlertTime = 0;
 
+    //Callback executada assim que o componente é chamado
     onMount(async () => {
         if (isAuthenticated()) {
             const response = await axios.get(auth.getUser);
