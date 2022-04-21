@@ -117,7 +117,6 @@
 		for(let location of markerLocations) {
 			let m = createMarker(location, ++i);
 			markerLayers.addLayer(m);
-			console.log(i)
 		}
 
 		lineLayers = createLines();
@@ -156,6 +155,8 @@
 	}
 
 	export function syncLocationsMap() {
+		if($coordinates.coords.length === 0) return
+
 		markerLayers.remove()
 		markerLocations = []
 		$coordinates.coords.forEach((c) => { markerLocations.push([c.Latitude, c.Longitude]) })

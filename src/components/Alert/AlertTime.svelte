@@ -42,7 +42,6 @@
             message = { success: true, display: response.data.message };
             new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
                 isUpdating = false;
-                document.getElementById("update").disabled = false;
             });
         } else {
             message = { success: false, display: response.data.message };

@@ -2,7 +2,7 @@
 	import axios from "axios";
 	import { createEventDispatcher } from "svelte";
 	import { position } from "../../Routes.svelte";
-	import { currentCoordinates, updateCoordinates } from "../../store/store";
+	import {coordinates, currentCoordinates, updateCoordinates} from "../../store/store";
 	import TableComponent from './TableComponent.svelte'
 
 	const dispatch = createEventDispatcher();
@@ -28,7 +28,6 @@
 		document.getElementById("last_location").disabled = true;
 		isSubmitting = true;
 		const response = await axios.get(position.getMyLocation);
-		console.log(response);
 		if (response.status === 200) {
 			updateCoordinates([response.data.location], type.last)
 			dispatch("syncLocationsMap")

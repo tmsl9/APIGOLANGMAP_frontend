@@ -22,7 +22,7 @@
         if (response.status === 200) {
             swal(response.data.message, "", "success")
             isSubmitting = false;
-            followers =response.data.userid
+            followers = response.data.userid !== null ? response.data.userid : []
             document.getElementById("submit").disabled = false;
         } else {
             swal(response.data.message, "", "error")
