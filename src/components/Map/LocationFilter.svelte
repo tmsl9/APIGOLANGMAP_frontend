@@ -51,7 +51,7 @@
 		if (response.status === 200) {
 			updateCoordinates(response.data.locations, type.history)
 			dispatch("syncLocationsMap")
-			let extra = response.data.extra === undefined ? "" : response.data.extra
+			let extra = response.data.extra === undefined ? "" : " but " + response.data.extra
 			swal(response.data.message + extra, "", "success")
 			isSubmitting = false;
 			document.getElementById("location_history").disabled = false;
