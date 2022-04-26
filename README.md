@@ -10,6 +10,7 @@ Run
 npm run dev
 ```
 
+
 Run (docker)
 
 ```bash
@@ -23,6 +24,7 @@ Stop (docker)
 docker stop svelte
 docker rm svelte # if necessary
 ```
+
 
 Use Server hosped in AWS/locally
 
