@@ -1,13 +1,23 @@
 # svelte app
 
-To run 
+Install dependencies
+```bash
+npm install
+```
+
+Run
+```bash
+npm run dev
+```
+
+Run (docker)
 
 ```bash
 docker build -t svelte .
 docker run --name svelte -p 8080:8080 svelte
 ```
 
-To stop
+Stop (docker)
 
 ```bash
 docker stop svelte
